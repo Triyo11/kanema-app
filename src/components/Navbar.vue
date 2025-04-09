@@ -50,7 +50,7 @@ const genreTypes = ref([
 ]);
 
 const handleGoToSearchPage = (query) => {
-  window.location.href = `/search/${query}`;
+  router.push({ name: 'Search', params: { query } });
 };
 
 const handleSearchByAI = async () => {

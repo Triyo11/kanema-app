@@ -71,7 +71,7 @@ const handleMouseLeave = () => {
 };
 
 const goToDetailMovie = (id) => {
-  window.location.href = `/detail/${id}`;
+  router.push({ name: 'Detail', params: { id } });
 }
 
 defineExpose({
