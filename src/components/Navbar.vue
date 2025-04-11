@@ -28,7 +28,7 @@ const propertySearchByAI = reactive({
   synopsis: null,
 });
 
-const genreTypes = ref([
+const genreTypes = [
   { name: 'Action', value: 'action' },
   { name: 'Animation', value: 'animation' },
   { name: 'Adventure', value: 'adventure' },
@@ -47,7 +47,7 @@ const genreTypes = ref([
   { name: 'Sci-Fi', value: 'sci-fi' },
   { name: 'Thriller', value: 'thriller' },
   { name: 'War', value: 'war' },
-]);
+];
 
 const handleGoToSearchPage = (query) => {
   router.push({ name: 'Search', params: { query } });
@@ -165,24 +165,21 @@ watch(user, (user) => {
           placeholder="Genre" display="chip" class="flex-auto w-full md:w-80 focus:border-8" />
       </div>
       <div class="card flex mb-2">
-        <InputText id="year" v-model="propertySearchByAI.year"
-          placeholder="Year (optional)" class="flex-auto w-full md:w-80"
-          autocomplete="off" />
+        <InputText id="year" v-model="propertySearchByAI.year" placeholder="Year (optional)"
+          class="flex-auto w-full md:w-80" autocomplete="off" />
       </div>
       <div class="card flex mb-2">
-        <InputText id="casts" v-model="propertySearchByAI.casts"
-          placeholder="Casts (optional)" class="flex-auto w-full md:w-80"
-          autocomplete="off" />
+        <InputText id="casts" v-model="propertySearchByAI.casts" placeholder="Casts (optional)"
+          class="flex-auto w-full md:w-80" autocomplete="off" />
       </div>
       <div class="card flex mb-2">
-        <Textarea id="synopsis" v-model="propertySearchByAI.synopsis" rows="5" cols="30"
-          placeholder="Tell me the story" class="flex-auto w-full md:w-80"
-          autocomplete="off" />
+        <Textarea id="synopsis" v-model="propertySearchByAI.synopsis" rows="5" cols="30" placeholder="Tell me the story"
+          class="flex-auto w-full md:w-80" autocomplete="off" />
       </div>
       <template #footer>
         <!-- <Button label="Cancel" text severity="secondary" @click="visible = false" autofocus />
         <Button label="Save" outlined severity="secondary" @click="visible = false" autofocus /> -->
-        <Button label="Find it!" @click="handleSearchByAI()" raised/>
+        <Button label="Find it!" @click="handleSearchByAI()" raised />
       </template>
     </Dialog>
   </div>
