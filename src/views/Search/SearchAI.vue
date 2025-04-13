@@ -4,6 +4,7 @@ import { useDialogSearchStore } from '../../stores/dialogSearchStore';
 
 import { ref, watchEffect } from 'vue';
 import { PhArrowSquareUpRight } from '@phosphor-icons/vue';
+import { RouterLink } from 'vue-router';
 
 const searchedResult = ref([]);
 const dialogSearchStore = useDialogSearchStore();
@@ -22,10 +23,10 @@ watchEffect(() => {
       <!-- full-reload page can cause reset state of store pinia -->
       <div class="flex flex-wrap items-center gap-2 text-xl font-semibold">
         <h3 class="text-[var(--green)]">{{ item.title }} <span>({{ item.year }})</span></h3>
-        <router-link :to="`/search/${item.title}`">
+        <RouterLink :to="`/search/${item.title}`">
           <PhArrowSquareUpRight :size="24" weight="fill"
             class="hover:text-[var(--dark-green)] transition-all ease-in-out duration-300" />
-        </router-link>
+        </RouterLink>
       </div>
       <div class="flex flex-col gap-2">
         <p>type: {{ item.type }}</p>

@@ -3,6 +3,7 @@ import { useMovieDetails } from './composable';
 import { useUserStore } from '@/stores/userStore';
 import ListMoviesFolded from '@/components/ListMoviesFolded.vue';
 import { PhBookmarkSimple } from '@phosphor-icons/vue';
+import { RouterLink } from 'vue-router';
 
 const props = defineProps({
   id: String
@@ -22,7 +23,7 @@ const {
   isFavorite,
   playVideo,
   toggleFavorite,
-} = useMovieDetails(props.id);
+} = useMovieDetails();
 </script>
 
 <template>
@@ -101,10 +102,11 @@ const {
             <!-- display casts of movie with horizontal scroll view -->
             <div v-if="castsMovie.length > 0" class="flex flex-col gap-2">
               <div class="flex w-full justify-end items-center">
-                <router-link :to="`/people/${detailedMovie?.id}`"
-                  class="text-lg text-[var(--white)] hover:text-[var(--green)] transition-all duration-300 ease-in-out">See
+                <RouterLink :to="`/people/${detailedMovie?.id}`"
+                  class="text-lg text-[var(--white)] hover:text-[var(--green)] transition-all duration-300 ease-in-out">
+                  See
                   all casts and crews
-                </router-link>
+                </RouterLink>
               </div>
               <div class="flex w-full min-h-max gap-4 overflow-x-auto scroll-style">
                 <div v-for="cast in castsMovie" :key="cast?.id" class="flex flex-col w-full max-h-fit items-center">

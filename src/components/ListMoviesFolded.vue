@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router';
 import SimpleCard from '../components/SimpleCard.vue';
 import { ref, onMounted, watchEffect } from 'vue';
 
@@ -42,7 +43,7 @@ onMounted(() => {
   <div class="flex flex-col w-[95dvw] gap-2">
     <div class="flex justify-between items-end">
       <h2 class="text-4xl font-bold text-white">{{ titleList }}</h2>
-      <router-link :to="`/catalog/${category}`" class="hover:text-[var(--green)]">Load more</router-link>
+      <RouterLink :to="`/catalog/${category}`" class="hover:text-[var(--green)]">Load more</RouterLink>
     </div>
     <div ref="scrollContainer" class="flex gap-4 overflow-x-auto scroll-style scroll-smooth snap-x snap-mandatory">
       <SimpleCard :movies="chosenMovies" />
