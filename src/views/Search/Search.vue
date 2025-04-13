@@ -8,7 +8,7 @@ const props = defineProps({
   query: String
 });
 
-const { dataSearch, error, loading } = useSearch(props.query);
+const { dataSearch, error, loading } = useSearch();
 </script>
 
 <template>
