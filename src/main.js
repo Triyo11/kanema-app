@@ -17,15 +17,14 @@ if (!PUBLISHABLE_KEY) {
 }
 
 const rootStyles = getComputedStyle(document.documentElement);
-const greenColor = rootStyles.getPropertyValue("--green").trim(); 
+const greenColor = rootStyles.getPropertyValue("--green").trim();
 const darkGreenColor = rootStyles.getPropertyValue("--dark-green").trim();
 const blackColor = rootStyles.getPropertyValue("--black").trim();
 const whiteColor = rootStyles.getPropertyValue("--white").trim();
 
 createApp(App)
-  .use(router)
   .use(pinia)
-  .use(clerkPlugin, { 
+  .use(clerkPlugin, {
     publishableKey: PUBLISHABLE_KEY,
     appearance: {
       baseTheme: dark,
@@ -37,13 +36,14 @@ createApp(App)
         colorTextSecondary: whiteColor,
         colorShimmer: greenColor,
         fontSize: "15px",
-      }
-    } 
+      },
+    },
   })
   .use(PrimeVue, {
     theme: {
       preset: Aura,
-    }
+    },
   })
   .use(ToastService)
+  .use(router)
   .mount("#app");
