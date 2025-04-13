@@ -1,5 +1,5 @@
 // composables/useMovieDetails.js
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, watch } from "vue";
 import {
   getDetailMovie,
   getVideosMovie,
@@ -9,8 +9,12 @@ import {
 } from "@/services/api-service";
 import { supabase } from "@/lib/supabase";
 import { useUserStore } from "@/stores/userStore";
+import { useRoute } from "vue-router";
 
-export function useMovieDetails(id) {
+
+export function useMovieDetails() {
+  const route = useRoute();
+
   const detailMovieSeriesOmdb = ref(null);
   const detailedMovie = ref([]);
   const videosMovie = ref([]);
@@ -22,7 +26,7 @@ export function useMovieDetails(id) {
   const similarMovies = ref([]);
   const isFavorite = ref(false);
   const userStore = useUserStore();
-
+  
   const playVideo = (key) => {
     keyPlayedVideo.value = key;
   };
@@ -47,7 +51,7 @@ export function useMovieDetails(id) {
       return;
     }
 
-    isFavorite.value = data.some((fav) => fav.movie_series_id.includes(id));
+    isFavorite.value = data.some((fav) => fav.movie_series_id.includes(route.params.id));
   };
 
   const toggleFavorite = async () => {
@@ -68,7 +72,7 @@ export function useMovieDetails(id) {
         return;
       }
 
-      if (data.movie_series_id.length === 1 && data.movie_series_id[0] === id) {
+      if (data.movie_series_id.length === 1 && data.movie_series_id[0] === route.params.id) {
         // If only one ID exists and matches id, delete the entire email record
         const { error: deleteError } = await supabase
           .from("favorites")
@@ -82,7 +86,7 @@ export function useMovieDetails(id) {
       } else {
         // Otherwise, filter out the ID from the movie_series_id array
         const updatedMovieSeriesId = data.movie_series_id.filter(
-          (id) => id !== id
+          (id) => id !== route.params.id
         );
         const { error: updateError } = await supabase
           .from("favorites")
@@ -113,7 +117,7 @@ export function useMovieDetails(id) {
         // Email does not exist, insert new record
         const { error: insertError } = await supabase.from("favorites").insert({
           email: userStore.user?.emailAddresses[0].emailAddress,
-          movie_series_id: [id],
+          movie_series_id: [route.params.id],
         });
 
         if (insertError) {
@@ -123,7 +127,7 @@ export function useMovieDetails(id) {
       } else {
         // Email exists, update movie_series_id
         const updatedMovieSeriesId = [
-          ...new Set([...data.movie_series_id, id]),
+          ...new Set([...data.movie_series_id, route.params.id]),
         ]; // Ensure no duplicates
         const { error: updateError } = await supabase
           .from("favorites")
@@ -140,7 +144,7 @@ export function useMovieDetails(id) {
     }
   };
 
-  watchEffect(async () => {
+  watch(() => route.params.id, async (id) => {
     const dataDetailMovie = await getDetailMovie(id);
     detailedMovie.value = dataDetailMovie.data;
     genresMovie.value = dataDetailMovie.data.genres
@@ -161,11 +165,11 @@ export function useMovieDetails(id) {
 
     const dataSimilarMovies = await getSimilarMovies(id);
     similarMovies.value = dataSimilarMovies.data.results;
-  });
+  }, { immediate: true });
 
-  watchEffect(() => {
+  watch(() => route.params.id, () => {
     checkFavoriteStatus();
-  });
+  }, { immediate: true });
 
   return {
     detailedMovie,
