@@ -82,6 +82,11 @@ const handleSearchByAI = async () => {
     console.error('Error fetching data:', error);
     toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred.', life: 3000 });
   });
+  // Reset the form after submission
+  propertySearchByAI.genre = null;
+  propertySearchByAI.year = null;
+  propertySearchByAI.casts = null;
+  propertySearchByAI.synopsis = null;
   isDialogSearchOpen.value = false;
 };
 
