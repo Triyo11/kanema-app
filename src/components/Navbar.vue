@@ -51,6 +51,7 @@ const genreTypes = [
 
 const handleGoToSearchPage = (query) => {
   router.push({ name: 'Search', params: { query } });
+  searchQuery.value = ''; // Clear the search input after navigating
 };
 
 const handleSearchByAI = async () => {
