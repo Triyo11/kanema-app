@@ -120,10 +120,6 @@ watch(user, (user) => {
                 width: '300px',
                 height: 'fit-content',
               }
-              // userButtonAvatarBox: {
-              //   width: '32px',
-              //   height: '32px',
-              // },
             },
           }" userProfileMode='navigation' , userProfileUrl='/profile'>
             <UserButton.MenuItems>

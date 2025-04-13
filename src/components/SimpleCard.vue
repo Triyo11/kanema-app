@@ -26,6 +26,7 @@ const goToDetailMovie = (id) => {
   // to make not full-reload page
   // full-reload page can cause reset state of store pinia
   router.push(`/detail/${id}`);
+  // window.location.href = `/detail/${id}`;
 }
 </script>
 
