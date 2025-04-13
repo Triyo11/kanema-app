@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watchEffect } from 'vue';
 import { getGenresMovie } from '../services/api-service';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   movies: {
@@ -9,6 +10,8 @@ const props = defineProps({
     default: () => [],
   }
 });
+
+const router = useRouter();
 
 const currentIndex = ref(0);
 const progress = ref(0);
