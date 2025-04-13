@@ -98,7 +98,7 @@ watch(user, (user) => {
 <template>
   <div class="sticky top-0 z-50 bg-[var(--black)] w-full max-h-max flex justify-between items-center py-4 px-8">
     <a href="/">
-      <h2 class="logo text-[var(--green)] text-3xl font-bold">NetFilm</h2>
+      <h2 class="logo text-[var(--green)] text-3xl font-bold">Kanema</h2>
     </a>
     <div class="search-bar flex absolute w-1/3 left-1/2 transform -translate-x-1/2">
       <form @submit.prevent="handleGoToSearchPage(searchQuery)" class="w-full flex">
