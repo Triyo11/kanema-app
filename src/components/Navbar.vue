@@ -1,93 +1,27 @@
 <script setup>
-import { SignedOut, SignInButton, UserButton, useUser } from '@clerk/vue';
-import { computed, reactive, ref, watch } from 'vue';
+import { SignedOut, SignInButton, UserButton, useUser, useAuth, SignOutButton, SignedIn } from '@clerk/vue';
+import { computed, ref, watch } from 'vue';
 import { useUserStore } from '../stores/userStore';
 import { useDialogSearchStore } from '../stores/dialogSearchStore';
-import { getGeminiResponse } from '../utils/useGemini';
-import { PhBookmarks } from '@phosphor-icons/vue';
-import { Button, Dialog, InputText, MultiSelect, Textarea } from 'primevue';
-import { useToast } from 'primevue/usetoast';
-import Toast from 'primevue/toast';
+import { PhBookmarks, PhList } from '@phosphor-icons/vue';
 import router from '../router';
+import { RouterLink } from 'vue-router';
+import AiDialogSearch from './AiDialogSearch.vue';
+import DialogSearch from './DialogSearch.vue';
 
 const { user } = useUser();
 const userStore = useUserStore();
 const dialogSearchStore = useDialogSearchStore();
-const toast = useToast();
+const { isSignedIn } = useAuth();
 
 const userName = computed(() => {
   return userStore.user?.firstName;
 })
 
-const searchQuery = ref('');
-const isDialogSearchOpen = ref(false);
-const propertySearchByAI = reactive({
-  genre: null,
-  year: null,
-  casts: null,
-  synopsis: null,
-});
+const isDropdownOpen = ref(false);
 
-const genreTypes = [
-  { name: 'Action', value: 'action' },
-  { name: 'Animation', value: 'animation' },
-  { name: 'Adventure', value: 'adventure' },
-  { name: 'Biography', value: 'biography' },
-  { name: 'Comedy', value: 'comedy' },
-  { name: 'Crime', value: 'crime' },
-  { name: 'Documentary', value: 'documentary' },
-  { name: 'Drama', value: 'drama' },
-  { name: 'Fantasy', value: 'fantasy' },
-  { name: 'Heroes', value: 'heroes' },
-  { name: 'History', value: 'history' },
-  { name: 'Horror', value: 'horror' },
-  { name: 'Mystery', value: 'mystery' },
-  { name: 'Religion', value: 'religion' },
-  { name: 'Romance', value: 'romance' },
-  { name: 'Sci-Fi', value: 'sci-fi' },
-  { name: 'Thriller', value: 'thriller' },
-  { name: 'War', value: 'war' },
-];
-
-const handleGoToSearchPage = (query) => {
-  router.push({ name: 'Search', params: { query } });
-  searchQuery.value = ''; // Clear the search input after navigating
-};
-
-const handleSearchByAI = async () => {
-  const { genre, synopsis } = propertySearchByAI;
-
-  if (!genre || genre.length === 0) {
-    toast.add({ severity: 'error', summary: 'Error', detail: 'I need the genre to find it.', life: 3000 });
-    return;
-  }
-
-  if (!synopsis || synopsis.trim() === '') {
-    toast.add({ severity: 'error', summary: 'Error', detail: "Hhmm... I can't understand, please write the story that you remembered.", life: 4000 });
-    return;
-  }
-
-  await getGeminiResponse(propertySearchByAI).then((response) => {
-    if (response) {
-      if (response.length > 0) {
-        dialogSearchStore.setSearchedResults(response);
-        router.push({ name: 'SearchAi' });
-      } else {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'No results found.', life: 3000 });
-      }
-    } else {
-      toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch data.', life: 3000 });
-    }
-  }).catch((error) => {
-    console.error('Error fetching data:', error);
-    toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred.', life: 3000 });
-  });
-  // Reset the form after submission
-  propertySearchByAI.genre = null;
-  propertySearchByAI.year = null;
-  propertySearchByAI.casts = null;
-  propertySearchByAI.synopsis = null;
-  isDialogSearchOpen.value = false;
+const handleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
 };
 
 watch(user, (user) => {
@@ -96,23 +30,84 @@ watch(user, (user) => {
 </script>
 
 <template>
-  <div class="sticky top-0 z-50 bg-[var(--black)] w-full max-h-max flex justify-between items-center py-4 px-8">
+  <div class="sticky top-0 z-50 bg-[var(--black)] w-full max-h-max flex justify-between items-center"
+    style="padding: 1rem 2rem;">
     <a href="/">
       <h2 class="logo text-[var(--green)] text-3xl font-bold">Kanema</h2>
     </a>
-    <div class="search-bar flex absolute w-1/3 left-1/2 transform -translate-x-1/2">
+    <!-- create a menu button -->
+    <div class="md:hidden">
+      <button @click="handleDropdown"
+        class="menu-button bg-[var(--green)] text-[var(--black)] rounded-md cursor-pointer"
+        style="padding: .25rem .25rem;">
+        <PhList :size="24" weight="bold" />
+      </button>
+      <div v-if="isDropdownOpen"
+        class="dropdown-menu absolute right-2 bg-[var(--dark-green)] text-[var(--green)] rounded-md shadow-lg z-50"
+        style="margin-top: .15rem;">
+        <ul class="dropdown-menu-list flex flex-col gap-2" style="padding: 1rem;">
+          <li class="dropdown-menu-item">
+            <button @click="() => {
+              dialogSearchStore.openDialog();
+              isDropdownOpen = false;
+            }" class="dropdown-menu-button">Search</button>
+          </li>
+          <li class="dropdown-menu-item">
+            <button @click="() => {
+              dialogSearchStore.openDialogAi();
+              isDropdownOpen = false;
+            }" class="dropdown-menu-button">Search by AI</button>
+          </li>
+          <li v-if="!isSignedIn" class="dropdown-menu-item">
+            <SignedOut>
+              <SignInButton>
+                <button class="dropdown-menu-button">Sign In</button>
+              </SignInButton>
+            </SignedOut>
+          </li>
+          <li v-if="isSignedIn" class="dropdown-menu-item">
+            <SignedIn>
+              <button @click="() => {
+                router.push({ name: 'Favorite' });
+                isDropdownOpen = false;
+              }" class="dropdown-menu-button">Favorites</button>
+            </SignedIn>
+          </li>
+          <li v-if="isSignedIn" class="dropdown-menu-item">
+            <SignedIn>
+              <button @click="() => {
+                router.push({ name: 'Profile' });
+                isDropdownOpen = false;
+              }" class="dropdown-menu-button">Manage Account</button>
+            </SignedIn>
+          </li>
+          <li v-if="isSignedIn" class="dropdown-menu-item">
+            <SignedIn>
+              <SignOutButton>
+                <button class="dropdown-menu-button">Sign Out</button>
+              </SignOutButton>
+            </SignedIn>
+          </li>
+        </ul>
+        <div class="dropdown-menu-overlay" @click="isDropdownOpen = false"></div>
+      </div>
+    </div>
+    <div class="hidden search-bar md:flex lg:absolute w-1/3 left-1/2 transform lg:-translate-x-1/2">
       <form @submit.prevent="handleGoToSearchPage(searchQuery)" class="w-full flex">
         <input type="text" placeholder="Search..." v-model="searchQuery"
-          class="search-input relative border-2 border-[var(--green)] focus:outline-none focus:border-[var(--green)] rounded-3xl w-full px-4 py-1.5 text-[var(--white)]" />
+          class="search-input relative border-2 border-[var(--green)] focus:outline-none focus:border-[var(--green)] rounded-3xl w-full text-[var(--white)]"
+          style="padding: .375rem 1rem;" />
         <button @click="handleGoToSearchPage(searchQuery)"
-          class="search-button absolute right-0 bg-[var(--green)] text-[var(--black)] w-fit h-full px-2 py-1 rounded-r-3xl ml-2 cursor-pointer">
+          class="search-button absolute right-0 bg-[var(--green)] text-[var(--black)] w-fit h-full rounded-r-3xl ml-2 cursor-pointer"
+          style="padding: .25rem .5rem;">
           Search
         </button>
       </form>
     </div>
-    <div class="flex items-center justify-between gap-4">
-      <button @click="isDialogSearchOpen = true"
-        class="search-ai-button bg-[var(--green)] text-[var(--black)] px-3 py-1 rounded-md cursor-pointer">
+    <div class="lg:flex items-center justify-between gap-4 hidden">
+      <button @click="dialogSearchStore.openDialogAi()"
+        class="search-ai-button bg-[var(--green)] text-[var(--black)] rounded-md cursor-pointer"
+        style="padding: .25rem .75rem;">
         Search by AI
       </button>
       <div>
@@ -143,7 +138,8 @@ watch(user, (user) => {
         <!-- Signed Out start -->
         <SignedOut>
           <SignInButton>
-            <button class="sign-in-button bg-[var(--green)] text-[var(--black)] px-3 py-1 rounded-md cursor-pointer">
+            <button class="sign-in-button bg-[var(--green)] text-[var(--black)] rounded-md cursor-pointer"
+              style="padding: .25rem .75rem;">
               Sign In
             </button>
           </SignInButton>
@@ -152,37 +148,6 @@ watch(user, (user) => {
       </div>
     </div>
   </div>
-  <div class="card flex justify-center">
-    <Toast position="top-right" :baseZIndex="10000" :style="{ zIndex: 10000 }" />
-    <Dialog v-model:visible="isDialogSearchOpen" modal
-      :style="{ width: '60vw', height: '60vh', padding: '14px', backgroundColor: 'var(--black)', borderRadius: '1rem', border: '3px solid var(--dark-green)' }">
-      <template #header>
-        <h2 class="font-semibold text-2xl text-[var(--green)]">Search by AI</h2>
-      </template>
-      <span class="text-lg block mb-6">
-        Please give some information about the movie you want to watch.
-      </span>
-      <div class="card flex justify-center items-center gap-4 mb-2 w-full md:w-80">
-        <MultiSelect id="genre" v-model="propertySearchByAI.genre" :options="genreTypes" optionLabel="name"
-          placeholder="Genre" display="chip" class="flex-auto w-full md:w-80 focus:border-8" />
-      </div>
-      <div class="card flex mb-2">
-        <InputText id="year" v-model="propertySearchByAI.year" placeholder="Year (optional)"
-          class="flex-auto w-full md:w-80" autocomplete="off" />
-      </div>
-      <div class="card flex mb-2">
-        <InputText id="casts" v-model="propertySearchByAI.casts" placeholder="Casts (optional)"
-          class="flex-auto w-full md:w-80" autocomplete="off" />
-      </div>
-      <div class="card flex mb-2">
-        <Textarea id="synopsis" v-model="propertySearchByAI.synopsis" rows="5" cols="30" placeholder="Tell me the story"
-          class="flex-auto w-full md:w-80" autocomplete="off" />
-      </div>
-      <template #footer>
-        <!-- <Button label="Cancel" text severity="secondary" @click="visible = false" autofocus />
-        <Button label="Save" outlined severity="secondary" @click="visible = false" autofocus /> -->
-        <Button label="Find it!" @click="handleSearchByAI()" raised />
-      </template>
-    </Dialog>
-  </div>
+  <AiDialogSearch />
+  <DialogSearch />
 </template>
