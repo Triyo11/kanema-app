@@ -1,34 +1,55 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
-import { GoogleGenAI } from '@google/genai';
+import { ref, watchEffect } from 'vue';
 import { useDialogSearchStore } from '../stores/dialogSearchStore';
-import { watchEffect } from 'vue';
-import { Dialog } from 'primevue';
+import { Dialog, Button, InputText } from 'primevue';
+import { useToast } from 'primevue/usetoast';
+import Toast from 'primevue/toast';
+import { defineProps } from 'vue';
+import router from '../router';
 
 const dialogSearchStore = useDialogSearchStore();
-const isDialogOpen = ref(false);
+const toast = useToast();
+
+const isDialogSearchOpen = ref(null);
+const searchQuery = ref('');
 
 watchEffect(() => {
-  isDialogOpen.value = dialogSearchStore.isDialogOpen;
+  isDialogSearchOpen.value = dialogSearchStore.isDialogSearchOpen;
 });
+
+const handleGoToSearchPage = (query) => {
+  if (!query) {
+    toast.add({ severity: 'error', summary: 'Error', detail: 'Please enter a title.', life: 3000 });
+    return;
+  }
+  router.push({ name: 'Search', params: { query } });
+  dialogSearchStore.closeDialog();
+  searchQuery.value = '';
+  // toast.add({ severity: 'success', summary: 'Success', detail: `Searching for "${query}"...`, life: 3000 });
+};
 </script>
 
 <template>
   <div class="card flex justify-center">
-    <Dialog v-model:visible="isDialogOpen" modal header="Search by AI" :style="{ width: '50vw' }">
-      <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
-      <div class="flex items-center gap-4 mb-4">
-        <label for="username" class="font-semibold w-24">Username</label>
-        <InputText id="username" class="flex-auto" autocomplete="off" />
+    <Toast position="top-right" :baseZIndex="10000" :style="{ zIndex: 10000 }" />
+    <Dialog v-model:visible="isDialogSearchOpen" modal :style="{
+      width: '50vw', height: 'fit-content',
+      padding: '.5rem',
+      backgroundColor: 'var(--black)',
+      borderRadius: '1rem',
+      border: '3px solid var(--dark-green)',
+    }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }" :closeOnEscape="true" :dismissableMask="true"
+      @hide="dialogSearchStore.closeDialog()">
+      <template #header>
+        <h2 class="font-semibold text-2xl text-[var(--green)]">Search</h2>
+      </template>
+      <div class="card flex" style="margin-bottom: .5rem;">
+        <InputText id="year" v-model="searchQuery" placeholder="Enter the title"
+          class="flex-auto w-full md:w-80" autocomplete="off" />
       </div>
-      <div class="flex items-center gap-4 mb-8">
-        <label for="email" class="font-semibold w-24">Email</label>
-        <InputText id="email" class="flex-auto" autocomplete="off" />
-      </div>
-      <div class="flex justify-end gap-2">
-        <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-        <Button type="button" label="Save" @click="visible = false"></Button>
-      </div>
+      <template #footer>
+        <Button label="Find it!" @click="handleGoToSearchPage(searchQuery)" raised />
+      </template>
     </Dialog>
   </div>
 </template>
