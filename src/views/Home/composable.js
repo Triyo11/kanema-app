@@ -18,8 +18,14 @@ export function useMovies() {
     dataPopular.value = (await getPopularMovies(1)).data.results;
     dataTopRated.value = (await getTopRatedMovies(1)).data.results;
     dataTrending.value = (await getTrendingMovies(1)).data.results;
-    dataNowPlaying.value = (await getNowPlayingMovies(1)).data.results;
     dataUpcoming.value = (await getUpcomingMovies(1)).data.results;
+    
+    const nowPlayingResults = [];
+    for (let page = 1; page <= 2; page++) {
+      const response = await getNowPlayingMovies(page);
+      nowPlayingResults.push(...response.data.results);
+    }
+    dataNowPlaying.value = nowPlayingResults;
   });
 
   return {
