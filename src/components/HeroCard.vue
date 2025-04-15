@@ -88,9 +88,9 @@ defineExpose({
     class="hero-card w-full max-h-fit my-0 mx-auto flex flex-col cursor-pointer" @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave">
     <transition name="slide-fade" mode="out-in">
-      <div class="w-full flex justify-center h-[50dvh] gap-8 px-72 relative" :key="chosenFilm?.id">
+      <div class="w-full flex flex-col min-[1105px]:flex-row max-[1105px]:items-center min-[1105px]:justify-center xl:h-[50dvh] gap-8 xl:px-72 relative" :key="chosenFilm?.id">
         <div v-if="chosenFilm?.backdrop_path"
-          class="image-backdrop bg-[var(--black)] w-1/2 h-full absolute right-80 scale-100 grayscale-100" :style="{
+          class="image-backdrop hidden xl:block bg-[var(--black)] w-1/2 h-full absolute right-80 scale-100 grayscale-100" :style="{
             backgroundImage: `linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent), url(https://image.tmdb.org/t/p/w500${chosenFilm?.backdrop_path})`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
@@ -103,12 +103,12 @@ defineExpose({
         </div>
         <div v-if="chosenFilm" class="relative flex items-center">
           <img :src="`https://image.tmdb.org/t/p/w500${chosenFilm?.poster_path}`"
-            class="image-poster w-full h-full object-cover" />
+            class="image-poster w-[250px] xl:w-full h-full object-cover" />
         </div>
-        <div class="max-w-3xl flex flex-col justify-between z-10 py-4">
-          <div v-if="chosenFilm" class="flex flex-col items-start">
+        <div class="hidden min-[1105px]:flex max-w-3xl flex-col xl:justify-between z-10 py-4" style="gap: 1rem;">
+          <div v-if="chosenFilm" class="flex flex-col items-center min-[1105px]:items-start">
             <h2 v-if="chosenFilm?.original_title !== chosenFilm?.title"
-              class="movie-title flex flex-col gap-2 font-bold text-left text-5xl text-[var(--green)]">
+              class="movie-title flex flex-col gap-2 font-bold text-center min-[1105px]:text-left text-5xl text-[var(--green)]">
               <span>{{ chosenFilm?.title }} ({{ chosenFilm?.release_date.split("-")[0] }})</span>
               <span class="text-2xl font-semibold">Original Title: {{ chosenFilm?.original_title }}</span>
             </h2>
@@ -117,7 +117,7 @@ defineExpose({
             </h2>
             <p class="movie-score text-2xl pt-2">{{ genresMovie }}</p>
           </div>
-          <p class="movie-overview text-justify hyphens-auto text-pretty line-clamp-4 text-xl">
+          <p class="hidden min-[1105px]:block movie-overview text-justify hyphens-auto text-pretty line-clamp-4 text-xl">
             {{ chosenFilm?.overview }}
           </p>
         </div>
