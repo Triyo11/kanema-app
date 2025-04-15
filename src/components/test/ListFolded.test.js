@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import ListMoviesFolded from "../ListMoviesFolded.vue";
+import ListFolded from "../ListFolded.vue";
 import SimpleCard from "../SimpleCard.vue";
 
 vi.mock("../SimpleCard.vue", () => ({
@@ -12,7 +12,7 @@ vi.mock("../SimpleCard.vue", () => ({
   },
 }));
 
-describe("ListMoviesFolded.vue", () => {
+describe("ListFolded.vue", () => {
   let wrapper;
   const mockMovies = [
     {
@@ -30,7 +30,7 @@ describe("ListMoviesFolded.vue", () => {
   ];
 
   beforeEach(() => {
-    wrapper = mount(ListMoviesFolded, {
+    wrapper = mount(ListFolded, {
       props: {
         titleList: "Test Title List",
         movies: mockMovies,

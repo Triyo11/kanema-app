@@ -1,7 +1,7 @@
 <script setup>
 import { useMovieDetails } from './composable';
 import { useUserStore } from '@/stores/userStore';
-import ListMoviesFolded from '@/components/ListMoviesFolded.vue';
+import ListFolded from '@/components/ListFolded.vue';
 import { PhBookmarkSimple } from '@phosphor-icons/vue';
 import { RouterLink } from 'vue-router';
 
@@ -152,7 +152,7 @@ const {
         </div>
       </div>
       <div v-if="similarMovies.length !== 0" class="w-full h-full flex flex-col items-center gap-2 pt-8 pb-36">
-        <ListMoviesFolded :titleList="`Similar Movies`" :movies="similarMovies" />
+        <ListFolded :titleList="`Similar Movies`" :movies="similarMovies" />
       </div>
     </div>
   </div>

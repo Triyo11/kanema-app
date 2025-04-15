@@ -29,14 +29,14 @@ watchEffect(() => {
   chosenMovies.value = filteredMovies.splice(0, 10);
 });
 
-onMounted(() => {
-  if (scrollContainer.value) {
-    scrollContainer.value.addEventListener("wheel", (event) => {
-      event.preventDefault();
-      scrollContainer.value.scrollLeft += event.deltaY;
-    });
-  }
-});
+// onMounted(() => {
+//   if (scrollContainer.value) {
+//     scrollContainer.value.addEventListener("wheel", (event) => {
+//       event.preventDefault();
+//       scrollContainer.value.scrollLeft += event.deltaY;
+//     });
+//   }
+// });
 </script>
 
 <template>
