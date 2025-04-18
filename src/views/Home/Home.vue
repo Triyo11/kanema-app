@@ -17,7 +17,7 @@ const { dataPopular, dataTopRated, dataTrending, dataNowPlaying, dataUpcoming } 
         <Skeleton width="100%" height="100%" animation="wave" />
       </div>
     </template>
-    <div class="flex flex-col gap-4 pt-2 pb-36">
+    <div class="flex flex-col gap-4" style="padding-top: .5rem; padding-bottom: 9rem;">
       <ListFolded titleList="Upcoming" category="upcoming" :movies="dataUpcoming" />
       <ListFolded titleList="Popular" category="popular" :movies="dataPopular" />
       <ListFolded titleList="Top Rated" category="top_rated" :movies="dataTopRated" />
