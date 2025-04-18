@@ -14,7 +14,8 @@ import { UserProfile } from '@clerk/vue';
       },
       cardBox: {
         margin: 'auto 0',
-        width: '60dvw',
+        width: '90%', // Adjusted for responsiveness
+        maxWidth: '60rem', // Added max width for larger screens
         height: '100%',
       },
     },
