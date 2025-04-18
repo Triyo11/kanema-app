@@ -29,12 +29,13 @@ const {
 <template>
   <div class="w-full h-screen flex flex-col items-center">
     <div class="h-full w-2/3 flex flex-col items-center">
-      <div class="w-full flex gap-4 pr-4 pl-2">
+      <div class="w-full flex gap-4" style="padding-right: 1rem; padding-left: .5rem;">
         <div class="relative h-fit">
           <img :src="`https://image.tmdb.org/t/p/w500${detailedMovie?.poster_path}`" alt="Movie Poster"
             class="h-[350px] object-cover">
           <button v-if="userStore.user" @click="toggleFavorite"
-            class="absolute top-2 right-2 bg-[var(--dark-green)] text-[var(--green)] px-1 py-1 rounded-md cursor-pointer shadow-md hover:bg-[var(--dark-green)]">
+            class="absolute top-2 right-2 bg-[var(--dark-green)] text-[var(--green)] rounded-md cursor-pointer shadow-md hover:bg-[var(--dark-green)]"
+            style="padding: .25rem;">
             <PhBookmarkSimple :size="24" :weight="isFavorite ? 'fill' : 'bold'"
               class="transition-all duration-300 ease-in-out" />
           </button>
@@ -42,11 +43,11 @@ const {
         <div class="flex flex-col w-3/4">
           <div class="header-detail-movie">
             <h2 v-if="detailedMovie?.original_title !== detailedMovie?.title"
-              class="movie-title flex flex-col gap-1 text-[var(--green)] pb-1 hyphens-auto">
+              class="movie-title flex flex-col gap-1 text-[var(--green)] hyphens-auto" style="padding-bottom: .25rem;">
               <span class="text-4xl font-bold">{{ detailedMovie?.title }}</span>
               <span class="text-lg">Original title: {{ detailedMovie?.original_title }}</span>
             </h2>
-            <h2 v-else class="text-4xl font-bold text-[var(--green)] pb-1 hyphens-auto">
+            <h2 v-else class="text-4xl font-bold text-[var(--green)] hyphens-auto" style="padding-bottom: .25rem;">
               {{ detailedMovie?.title }}
             </h2>
             <div class="flex items-center gap-2">
@@ -59,7 +60,7 @@ const {
               <div>{{ detailedMovie?.release_date?.split("-")[0] }}</div>
             </div>
           </div>
-          <div class="body-detail-movie pt-8">
+          <div class="body-detail-movie" style="padding-top: 2rem;">
             <p class="text-lg text-[var(--white)] text-justify hyphens-auto">
               {{ detailedMovie?.overview }}
             </p>
@@ -78,27 +79,29 @@ const {
               </p>
             </div>
           </div> -->
-          <div class="w-full flex items-start pt-8 gap-8">
+          <div class="w-full flex items-start gap-8" style="padding-top: 2rem;">
             <div v-if="detailedMovie?.production_companies?.length !== 0" class="basis-1/2 production-companies">
-              <h2 class="text-lg text-[var(--green)] pb-2">Production Companies</h2>
+              <h2 class="text-lg text-[var(--green)]" style="padding-bottom: .5rem;">Production Companies</h2>
               <ul class="flex flex-wrap gap-2">
                 <li v-for="company in detailedMovie?.production_companies" :key="company?.id"
-                  class="text-lg text-[var(--white)] border-2 border-[var(--green)] rounded-md py-1 px-2">
+                  class="text-lg text-[var(--white)] border-2 border-[var(--green)] rounded-md"
+                  style="padding: .5rem .25rem;">
                   {{ company?.name }}
                 </li>
               </ul>
             </div>
             <div v-if="detailedMovie?.production_countries?.length !== 0" class="basis-1/2 production-countries">
-              <h2 class="text-lg text-[var(--green)] pb-2">Production Countries</h2>
+              <h2 class="text-lg text-[var(--green)]" style="padding-bottom: .5rem;">Production Countries</h2>
               <ul class="flex flex-wrap gap-2">
                 <li v-for="country in detailedMovie?.production_countries" :key="country?.iso_3166_1"
-                  class="text-lg text-[var(--white)] border-2 border-[var(--green)] rounded-md py-1 px-2">
+                  class="text-lg text-[var(--white)] border-2 border-[var(--green)] rounded-md"
+                  style="padding: .5rem .25rem;">
                   {{ country?.name }}
                 </li>
               </ul>
             </div>
           </div>
-          <div class="w-full flex flex-col gap-4 pt-8">
+          <div class="w-full flex flex-col gap-4" style="padding-top: 2rem;">
             <!-- display casts of movie with horizontal scroll view -->
             <div v-if="castsMovie.length > 0" class="flex flex-col gap-2">
               <div class="flex w-full justify-end items-center">
@@ -136,7 +139,8 @@ const {
           </div>
         </div>
       </div>
-      <div v-if="videosMovie?.length !== 0" class="w-full h-full flex flex-col items-center gap-2 pt-8 pb-4">
+      <div v-if="videosMovie?.length !== 0" class="w-full h-full flex flex-col items-center gap-2"
+        style="padding-top: 2rem; padding-bottom: 1rem;">
         <!-- <h2 class="text-2xl font-semibold text-[var(--green)]">Videos</h2> -->
         <div class="w-3/4 h-[500px] flex justify-end gap-4">
           <div class="flex flex-col gap-2 overflow-y-auto scroll-style">
@@ -151,7 +155,8 @@ const {
             class="h-full w-full mb-4"></iframe>
         </div>
       </div>
-      <div v-if="similarMovies.length !== 0" class="w-full h-full flex flex-col items-center gap-2 pt-8 pb-36">
+      <div v-if="similarMovies.length !== 0" class="w-full h-full flex flex-col items-center gap-2"
+        style="padding-top: 2rem; padding-bottom: 9rem;">
         <ListFolded :titleList="`Similar Movies`" :movies="similarMovies" />
       </div>
     </div>
