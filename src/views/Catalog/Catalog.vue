@@ -51,11 +51,8 @@ watchEffect(() => {
         <div v-else-if="!loading && dataMoviesContainer.value.results?.length === 0">
           <NotFound subTitle="No favorite movies or series found" />
         </div>
-        <div v-else-if="dataMoviesContainer.value" class="w-full flex flex-wrap gap-8">
+        <div v-else-if="dataMoviesContainer.value" class="border w-full flex justify-center flex-wrap gap-8">
           <SimpleCard :movies="dataMoviesContainer.value.results" />
-        </div>
-        <div v-else>
-          <p>Hello World</p>
         </div>
       </transition>
       <Paginator v-model:first="currentPage" :rows="20" :totalRecords="dataMoviesContainer.value.total_results"
