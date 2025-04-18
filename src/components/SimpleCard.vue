@@ -39,11 +39,13 @@ const goToDetailMovie = (id) => {
         class="w-[350px] h-[350px] object-fill">
       <div v-if="hoveredMovieId === movie?.id"
         class="absolute w-full h-full flex flex-col justify-between bg-[var(--dark-green)]/90 opacity-0 hover:opacity-100 transition-all ease-in-out duration-300">
-        <p class="overview-card text-sm text-white text-center text-pretty hyphens-auto px-2 pt-2 line-clamp-5">{{
-          movie?.overview }}
+        <p class="overview-card text-md text-white text-center text-balance hyphens-auto px-2 pt-2 line-clamp-5"
+          style="padding-top: .5rem; padding-inline: .5rem;">
+          {{ movie?.overview }}
         </p>
         <h2
-          class="title-card text-xl font-bold bg-[var(--green)] text-[var(--black)] px-2 text-center align-middle w-full truncate">
+          class="title-card text-xl font-bold bg-[var(--green)] text-[var(--black)] px-2 text-center align-middle w-full truncate"
+          style="padding-inline: .5rem;">
           {{ movie?.title }}</h2>
       </div>
     </button>
