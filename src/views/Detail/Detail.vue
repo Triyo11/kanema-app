@@ -28,19 +28,21 @@ const {
 
 <template>
   <div class="w-full h-screen flex flex-col items-center">
-    <div class="h-full w-2/3 flex flex-col items-center">
-      <div class="w-full flex gap-4" style="padding-right: 1rem; padding-left: .5rem;">
-        <div class="relative h-fit">
-          <img :src="`https://image.tmdb.org/t/p/w500${detailedMovie?.poster_path}`" alt="Movie Poster"
-            class="h-[350px] object-cover">
-          <button v-if="userStore.user" @click="toggleFavorite"
-            class="absolute top-2 right-2 bg-[var(--dark-green)] text-[var(--green)] rounded-md cursor-pointer shadow-md hover:bg-[var(--dark-green)]"
-            style="padding: .25rem;">
-            <PhBookmarkSimple :size="24" :weight="isFavorite ? 'fill' : 'bold'"
-              class="transition-all duration-300 ease-in-out" />
-          </button>
+    <div class="h-full w-5/6 flex flex-col items-center">
+      <div class="w-full flex flex-col min-[1158px]:flex-row items-center min-[1158px]:items-start gap-2">
+        <div class="relative h-fit w-fit min-[1158px]:w-1/4">
+          <div class="relative">
+            <img :src="`https://image.tmdb.org/t/p/w500${detailedMovie?.poster_path}`" alt="Movie Poster"
+              class="min-w-[240px] w-full min-h-[350px] max-h-[500px] object-cover" />
+            <button v-if="userStore.user" @click="toggleFavorite"
+              class="absolute top-2 right-2 bg-[var(--dark-green)] text-[var(--green)] rounded-md cursor-pointer shadow-md hover:bg-[var(--dark-green)]"
+              style="padding: .25rem;">
+              <PhBookmarkSimple :size="24" :weight="isFavorite ? 'fill' : 'bold'"
+                class="transition-all duration-300 ease-in-out" />
+            </button>
+          </div>
         </div>
-        <div class="flex flex-col w-3/4">
+        <div class="flex flex-col w-full min-[1158px]:w-3/4 pl-4">
           <div class="header-detail-movie">
             <h2 v-if="detailedMovie?.original_title !== detailedMovie?.title"
               class="movie-title flex flex-col gap-1 text-[var(--green)] hyphens-auto" style="padding-bottom: .25rem;">
@@ -50,7 +52,7 @@ const {
             <h2 v-else class="text-4xl font-bold text-[var(--green)] hyphens-auto" style="padding-bottom: .25rem;">
               {{ detailedMovie?.title }}
             </h2>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
               <div class="text-lg text-[var(--white)]">
                 {{ genresMovie }}
               </div>
@@ -79,28 +81,6 @@ const {
               </p>
             </div>
           </div> -->
-          <div class="w-full flex items-start gap-8" style="padding-top: 2rem;">
-            <div v-if="detailedMovie?.production_companies?.length !== 0" class="basis-1/2 production-companies">
-              <h2 class="text-lg text-[var(--green)]" style="padding-bottom: .5rem;">Production Companies</h2>
-              <ul class="flex flex-wrap gap-2">
-                <li v-for="company in detailedMovie?.production_companies" :key="company?.id"
-                  class="text-lg text-[var(--white)] border-2 border-[var(--green)] rounded-md"
-                  style="padding: .5rem .25rem;">
-                  {{ company?.name }}
-                </li>
-              </ul>
-            </div>
-            <div v-if="detailedMovie?.production_countries?.length !== 0" class="basis-1/2 production-countries">
-              <h2 class="text-lg text-[var(--green)]" style="padding-bottom: .5rem;">Production Countries</h2>
-              <ul class="flex flex-wrap gap-2">
-                <li v-for="country in detailedMovie?.production_countries" :key="country?.iso_3166_1"
-                  class="text-lg text-[var(--white)] border-2 border-[var(--green)] rounded-md"
-                  style="padding: .5rem .25rem;">
-                  {{ country?.name }}
-                </li>
-              </ul>
-            </div>
-          </div>
           <div class="w-full flex flex-col gap-4" style="padding-top: 2rem;">
             <!-- display casts of movie with horizontal scroll view -->
             <div v-if="castsMovie.length > 0" class="flex flex-col gap-2">
@@ -137,16 +117,38 @@ const {
               </div>
             </div> -->
           </div>
+          <div class="w-full flex items-start gap-8" style="padding-top: 2rem;">
+            <div v-if="detailedMovie?.production_companies?.length !== 0" class="basis-1/2 production-companies">
+              <h2 class="text-lg text-[var(--green)]" style="padding-bottom: .5rem;">Production Companies</h2>
+              <ul class="flex flex-col gap-2">
+                <li v-for="company in detailedMovie?.production_companies" :key="company?.id"
+                  class="text-lg text-[var(--white)]">
+                  {{ company?.name }}
+                </li>
+              </ul>
+            </div>
+            <div v-if="detailedMovie?.production_countries?.length !== 0" class="basis-1/2 production-countries">
+              <h2 class="text-lg text-[var(--green)]" style="padding-bottom: .5rem;">Production Countries</h2>
+              <ul class="flex flex-wrap gap-4">
+                <li v-for="country in detailedMovie?.production_countries" :key="country?.iso_3166_1"
+                  class="text-lg text-[var(--white)]">
+                  {{ country?.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <div v-if="videosMovie?.length !== 0" class="w-full h-full flex flex-col items-center gap-2"
         style="padding-top: 2rem; padding-bottom: 1rem;">
         <!-- <h2 class="text-2xl font-semibold text-[var(--green)]">Videos</h2> -->
-        <div class="w-3/4 h-[500px] flex justify-end gap-4">
-          <div class="flex flex-col gap-2 overflow-y-auto scroll-style">
-            <div v-for="video in videosMovie" :key="video?.id">
+        <div class="w-full min-[1024px]:w-3/4 h-125 flex flex-col min-[1158px]:flex-row justify-end gap-4">
+          <div
+            class="flex max-[1158px]:h-22 min-[1158px]:flex-col gap-2 max-[1158px]:overflow-x-auto min-[630px]:overflow-y-auto scroll-style">
+            <div v-for="video in videosMovie" :key="video?.id" class="w-full h-full flex flex-col items-center">
               <button @click="playVideo(video?.key)" class="cursor-pointer">
-                <img :src="`https://img.youtube.com/vi/${video?.key}/hqdefault.jpg`" alt="Trailer Image" class="h-18">
+                <img :src="`https://img.youtube.com/vi/${video?.key}/mqdefault.jpg`" alt="Video Thumbnail"
+                  class="h-18 min-w-26 object-cover" />
               </button>
             </div>
           </div>
