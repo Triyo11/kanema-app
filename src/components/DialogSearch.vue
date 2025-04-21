@@ -4,7 +4,6 @@ import { useDialogSearchStore } from '../stores/dialogSearchStore';
 import { Dialog, Button, InputText } from 'primevue';
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
-import { defineProps } from 'vue';
 import router from '../router';
 
 const dialogSearchStore = useDialogSearchStore();

@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import SimpleCard from '../components/SimpleCard.vue';
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 const props = defineProps({
   titleList: {
