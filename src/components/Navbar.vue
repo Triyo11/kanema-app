@@ -5,7 +5,6 @@ import { useUserStore } from '../stores/userStore';
 import { useDialogSearchStore } from '../stores/dialogSearchStore';
 import { PhBookmarks, PhList } from '@phosphor-icons/vue';
 import router from '../router';
-import { RouterLink } from 'vue-router';
 import AiDialogSearch from './AiDialogSearch.vue';
 import DialogSearch from './DialogSearch.vue';
 
@@ -30,7 +29,7 @@ watch(user, (user) => {
 </script>
 
 <template>
-  <div class="sticky top-0 z-50 bg-[var(--black)] w-full max-h-max flex justify-between items-center"
+  <div class="bg-[var(--black)] w-full max-h-max flex justify-between items-center"
     style="padding: 1rem 2rem;">
     <a href="/">
       <h2 class="logo text-[var(--green)] text-3xl font-bold">Kanema</h2>
