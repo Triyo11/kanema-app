@@ -19,7 +19,7 @@ const { favorites, error, loading } = useFavorites();
         <div v-else-if="!loading && favorites.length === 0">
           <NotFound subTitle="No favorite movies or series found" />
         </div>
-        <div v-else-if="favorites" class="w-full flex flex-wrap gap-8">
+        <div v-else-if="favorites" class="w-full flex flex-wrap justify-center gap-8">
           <SimpleCard :movies="favorites" />
         </div>
       </transition>
