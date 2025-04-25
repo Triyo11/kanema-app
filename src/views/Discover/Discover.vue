@@ -59,7 +59,7 @@ watchEffect(() => {
           <SimpleCard :movies="moviesContainer?.value?.results.filter(movie => movie.poster_path !== null)" />
         </div>
       </transition>
-      <Paginator v-model:first="currentPage" :rows="20" :totalRecords="moviesContainer?.value?.total_results"
+      <Paginator v-model:first="currentPage" :rows="1" :totalRecords="moviesContainer?.value?.total_pages"
         template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
         currentPageReportTemplate="Showing page {first} of {totalPages}">
         <template #firsticon>
