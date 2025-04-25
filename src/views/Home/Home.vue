@@ -8,7 +8,7 @@ const { loading, dataPopular, dataTopRated, dataTrending, dataNowPlaying, dataUp
 </script>
 
 <template>
-  <div class="w-full h-screen flex flex-col items-center">
+  <div class="w-full h-full flex flex-col items-center">
     <template v-if="loading">
       <div class="w-full h-64 flex items-center justify-center bg-gray-200 animate-pulse">
         <Skeleton width="100%" height="100%" animation="wave"></Skeleton>
@@ -20,7 +20,7 @@ const { loading, dataPopular, dataTopRated, dataTrending, dataNowPlaying, dataUp
       </div>
     </template>
     <template v-else>
-      <template v-if="dataNowPlaying.length">
+      <template v-if="dataNowPlaying.length" class="hero-card">
         <HeroCard :movies="dataNowPlaying" />
       </template>
       <template v-else>
@@ -37,3 +37,11 @@ const { loading, dataPopular, dataTopRated, dataTrending, dataNowPlaying, dataUp
     </template>
   </div>
 </template>
+
+<style scoped>
+@media (max-width: 768px) {
+  .hero-card {
+    padding-top: 3rem;
+  }
+}
+</style>

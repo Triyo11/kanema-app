@@ -28,14 +28,25 @@ watch(user, (user) => {
 })
 </script>
 
+<style scoped>
+.padding-navbar {
+  padding: 1rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .padding-navbar {
+    padding: 1rem 1rem;
+  }
+}
+</style>
+
 <template>
-  <div class="bg-[var(--black)] w-full max-h-max flex justify-between items-center"
-    style="padding: 1rem 2rem;">
+  <div
+    class="padding-navbar fixed md:sticky bottom-0 md:top-0 z-100 bg-[var(--black)] w-full max-h-max flex justify-between items-center">
     <a href="/">
       <h2 class="logo text-[var(--green)] text-3xl font-bold">Kanema</h2>
     </a>
-    <!-- create a menu button -->
-    <div class="md:hidden">
+    <div class="lg:hidden">
       <button @click="handleDropdown"
         class="menu-button bg-[var(--green)] text-[var(--black)] rounded-md cursor-pointer"
         style="padding: .25rem .25rem;">
@@ -91,7 +102,7 @@ watch(user, (user) => {
         <div class="dropdown-menu-overlay" @click="isDropdownOpen = false"></div>
       </div>
     </div>
-    <div class="hidden search-bar md:flex lg:absolute w-1/3 left-1/2 transform lg:-translate-x-1/2">
+    <div class="hidden search-bar lg:flex lg:absolute w-1/3 left-1/2 transform lg:-translate-x-1/2">
       <form @submit.prevent="handleGoToSearchPage(searchQuery)" class="w-full flex">
         <input type="text" placeholder="Search..." v-model="searchQuery"
           class="search-input relative border-2 border-[var(--green)] focus:outline-none focus:border-[var(--green)] rounded-3xl w-full text-[var(--white)]"
