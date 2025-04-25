@@ -33,7 +33,7 @@ const {
         <div class="relative h-fit w-fit min-[1158px]:w-1/4">
           <div class="relative">
             <img :src="`https://image.tmdb.org/t/p/w500${detailedMovie?.poster_path}`" alt="Movie Poster"
-              class="min-w-[240px] w-full min-h-[350px] max-h-[500px] object-cover" />
+              class="min-w-[240px] w-full min-h-[350px] max-h-[600px] object-cover" />
             <button v-if="userStore.user" @click="toggleFavorite"
               class="absolute top-2 right-2 bg-[var(--dark-green)] text-[var(--green)] rounded-md cursor-pointer shadow-md hover:bg-[var(--dark-green)]"
               style="padding: .25rem;">
