@@ -119,12 +119,12 @@ const {
           </div>
           <div class="w-full flex items-start gap-8" style="padding-top: 2rem;">
             <div v-if="detailedMovie?.production_companies?.length !== 0" class="basis-1/2 production-companies">
-              <h2 class="text-lg text-[var(--green)]" style="padding-bottom: .5rem;">Production Companies</h2>
+              <h2 class="text-lg" style="padding-bottom: .5rem;">Production Companies</h2>
               <ul class="flex flex-col gap-2">
                 <li v-for="company in detailedMovie?.production_companies" :key="company?.id"
                   class="text-lg text-[var(--white)]">
                   <RouterLink :to="`/discover/with_companies/${company?.name}/${company?.id}/1`"
-                    class="hover:text-[var(--green)] transition-all duration-300 ease-in-out">
+                    class="text-[var(--green)] underline underline-offset-4">
                     {{ company?.name }}
                   </RouterLink>
                 </li>
