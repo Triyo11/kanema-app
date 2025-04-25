@@ -8,7 +8,7 @@ export function useDiscoverMovies(filter, query, page) {
 
   watchEffect(async () => {
     const result = await getDiscoverMovies(filter, query, page);
-    movies.value = result.data.results;
+    movies.value = result.data;
     error.value = result.error;
     loading.value = result.loading;
   });

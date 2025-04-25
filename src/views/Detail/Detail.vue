@@ -123,7 +123,7 @@ const {
               <ul class="flex flex-col gap-2">
                 <li v-for="company in detailedMovie?.production_companies" :key="company?.id"
                   class="text-lg text-[var(--white)]">
-                  <RouterLink :to="`/discover/with_companies/${company?.name}/${company?.id}/1`"
+                  <RouterLink :to="`/discover/with_companies/${company?.name}/${company?.id}`"
                     class="text-[var(--green)] underline underline-offset-4">
                     {{ company?.name }}
                   </RouterLink>
@@ -143,7 +143,7 @@ const {
         </div>
       </div>
       <div v-if="videosMovie?.length !== 0" class="w-full h-full flex flex-col items-center gap-2"
-        style="padding-top: 2rem; padding-bottom: 1rem;">
+        style="padding-top: 2rem; padding-bottom: 5rem;">
         <!-- <h2 class="text-2xl font-semibold text-[var(--green)]">Videos</h2> -->
         <div class="w-full min-[1024px]:w-3/4 h-125 flex flex-col min-[1158px]:flex-row justify-end gap-4">
           <div
@@ -160,10 +160,10 @@ const {
             class="h-full w-full mb-4"></iframe>
         </div>
       </div>
-      <div v-if="similarMovies.length !== 0" class="w-full h-full flex flex-col items-center gap-2"
+      <!-- <div v-if="similarMovies.length !== 0" class="w-full h-full flex flex-col items-center gap-2"
         style="padding-top: 2rem; padding-bottom: 9rem;">
         <ListFolded :titleList="`Similar Movies`" :movies="similarMovies" />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

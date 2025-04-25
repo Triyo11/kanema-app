@@ -43,7 +43,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/discover/:filter/:title/:query/:page",
+    path: "/discover/:filter/:title/:query",
     name: "Discover",
     component: () => import("../views/Discover/Discover.vue"),
     props: true,
