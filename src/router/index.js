@@ -42,6 +42,12 @@ const routes = [
     component: () => import("../views/Favorite/Favorite.vue"),
     props: true,
   },
+  {
+    path: "/discover/:filter/:title/:query/:page",
+    name: "Discover",
+    component: () => import("../views/Discover/Discover.vue"),
+    props: true,
+  },
 ];
 
 const router = createRouter({
@@ -53,8 +59,7 @@ const router = createRouter({
     } else {
       return { top: 0, behavior: "smooth" };
     }
-    // return { top: 0, behavior: "smooth" };
-  }
+  },
 });
 
 export default router;

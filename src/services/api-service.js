@@ -49,9 +49,7 @@ const fetchDataOmdb = async (url) => {
 };
 
 export const getMovieSeriesDetailOmdb = async (query) => {
-  return await fetchDataOmdb(
-    `/api/?apikey=${API_KEY_OMDB}&t=${query}`
-  );
+  return await fetchDataOmdb(`/api/?apikey=${API_KEY_OMDB}&t=${query}`);
 };
 
 export const getPopularMovies = async (page) => {
@@ -113,5 +111,11 @@ export const getSimilarMovies = async (id) => {
 export const getSearchMovies = async (query, page) => {
   return await fetchDataTmdb(
     `${API_URL_TMDB}/search/movie?query=${query}&language=en-US&page=${page}&region=ID`
+  );
+};
+
+export const getDiscoverMovies = async (filter, query, page) => {
+  return await fetchDataTmdb(
+    `${API_URL_TMDB}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&${filter}=${query}`
   );
 };

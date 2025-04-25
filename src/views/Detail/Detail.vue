@@ -123,7 +123,10 @@ const {
               <ul class="flex flex-col gap-2">
                 <li v-for="company in detailedMovie?.production_companies" :key="company?.id"
                   class="text-lg text-[var(--white)]">
-                  {{ company?.name }}
+                  <RouterLink :to="`/discover/with_companies/${company?.name}/${company?.id}/1`"
+                    class="hover:text-[var(--green)] transition-all duration-300 ease-in-out">
+                    {{ company?.name }}
+                  </RouterLink>
                 </li>
               </ul>
             </div>
