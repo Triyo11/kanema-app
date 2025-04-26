@@ -7,17 +7,31 @@ import { PhBookmarks, PhList } from '@phosphor-icons/vue';
 import router from '../router';
 import AiDialogSearch from './AiDialogSearch.vue';
 import DialogSearch from './DialogSearch.vue';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
 
 const { user } = useUser();
 const userStore = useUserStore();
 const dialogSearchStore = useDialogSearchStore();
 const { isSignedIn } = useAuth();
+const toast = useToast();
 
 const userName = computed(() => {
   return userStore.user?.firstName;
 })
 
+const searchQuery = ref('');
 const isDropdownOpen = ref(false);
+
+const handleGoToSearchPage = (query) => {
+  console.log('Search query:', query);
+  if (!query) {
+    toast.add({ severity: 'error', summary: 'Error', detail: 'Please enter a title.', life: 3000 });
+    return;
+  }
+  router.push({ name: 'Search', params: { query } });
+  searchQuery.value = '';
+};
 
 const handleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
@@ -28,21 +42,9 @@ watch(user, (user) => {
 })
 </script>
 
-<style scoped>
-.padding-navbar {
-  padding: 1rem 2rem;
-}
-
-@media (max-width: 768px) {
-  .padding-navbar {
-    padding: 1rem 1rem;
-  }
-}
-</style>
-
 <template>
-  <div
-    class="padding-navbar fixed md:sticky bottom-0 md:top-0 z-100 bg-[var(--black)] w-full max-h-max flex justify-between items-center">
+  <div class="padding-navbar sticky top-0 z-100 bg-[var(--black)] w-full max-h-max flex justify-between items-center">
+    <Toast position="top-right" :baseZIndex="10000" :style="{ zIndex: 10000 }" />
     <a href="/">
       <h2 class="logo text-[var(--green)] text-3xl font-bold">Kanema</h2>
     </a>
@@ -107,7 +109,7 @@ watch(user, (user) => {
         <input type="text" placeholder="Search..." v-model="searchQuery"
           class="search-input relative border-2 border-[var(--green)] focus:outline-none focus:border-[var(--green)] rounded-3xl w-full text-[var(--white)]"
           style="padding: .375rem 1rem;" />
-        <button @click="handleGoToSearchPage(searchQuery)"
+        <button type="submit"
           class="search-button absolute right-0 bg-[var(--green)] text-[var(--black)] w-fit h-full rounded-r-3xl ml-2 cursor-pointer"
           style="padding: .25rem .5rem;">
           Search
@@ -161,3 +163,15 @@ watch(user, (user) => {
   <AiDialogSearch />
   <DialogSearch />
 </template>
+
+<style scoped>
+.padding-navbar {
+  padding: 1rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .padding-navbar {
+    padding: 1rem 1rem;
+  }
+}
+</style>
