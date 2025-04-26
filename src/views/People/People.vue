@@ -56,7 +56,7 @@ function groupByJob(crews) {
           <span class="text-4xl font-bold">{{ movieInfo?.title }}</span>
           <span class="text-lg">Original title: {{ movieInfo?.original_title }}</span>
         </h2>
-        <h2 v-else class="text-4xl font-bold text-[var(--green)] hyphens-auto" style="padding-bottom: .25rem;">
+        <h2 v-else class="text-4xl font-bold text-[var(--green)] max-[1411px]:text-center hyphens-auto" style="padding-bottom: .25rem;">
           {{ movieInfo?.title }}
         </h2>
         <p class="font-semibold text-4xl">{{ movieInfo?.release_date?.split("-")[0] }}</p>
