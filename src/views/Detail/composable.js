@@ -147,9 +147,7 @@ export function useMovieDetails() {
   watch(() => route.params.id, async (id) => {
     const dataDetailMovie = await getDetailMovie(id);
     detailedMovie.value = dataDetailMovie.data;
-    genresMovie.value = dataDetailMovie.data.genres
-      .map((genre) => genre.name)
-      .join(", ");
+    genresMovie.value = dataDetailMovie.data.genres;
 
     const dataDetailMovieSeriesOmdb = await getMovieSeriesDetailOmdb(detailedMovie.value.title || detailedMovie.value.name);
     detailMovieSeriesOmdb.value = dataDetailMovieSeriesOmdb;

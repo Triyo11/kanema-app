@@ -25,6 +25,7 @@ const {
   playVideo,
   toggleFavorite,
 } = useMovieDetails();
+console.log('genresMovie', genresMovie);
 </script>
 
 <template>
@@ -54,9 +55,11 @@ const {
               {{ detailedMovie?.title }}
             </h2>
             <div class="flex flex-wrap items-center gap-2">
-              <!-- TODO : create discover by genres -->
-              <div class="text-lg text-[var(--white)]">
-                {{ genresMovie }}
+              <div v-for="genre in genresMovie" :key="genre?.id">
+                <RouterLink :to="`/discover/with_genres/${genre?.name}/${genre?.id}`"
+                  class="text-[var(--green)] underline underline-offset-4">
+                  {{ genre.name }}
+                </RouterLink>
               </div>
               <div v-if="durationMovie" class="w-1.5 h-1.5 rounded-full bg-[var(--white)]"></div>
               <div v-if="durationMovie">{{ durationMovie }}</div>
