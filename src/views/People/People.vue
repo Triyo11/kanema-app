@@ -2,6 +2,7 @@
 <script setup>
 import { PhUser } from '@phosphor-icons/vue';
 import { usePeopleDetails } from './composable';
+import LongPeopleCard from '../../components/peopleCard/LongPeopleCard.vue';
 
 const {
   casts,
@@ -67,20 +68,7 @@ function groupByJob(crews) {
           Casts ({{ casts.length }})
         </h2>
         <div class="flex flex-col gap-4">
-          <div v-for="cast in casts" :key="cast.id" class="w-full h-fit flex items-center gap-2">
-            <div v-if="cast.profile_path" class="h-18 min-w-18 rounded-full overflow-hidden">
-              <img :src="`https://image.tmdb.org/t/p/w500${cast.profile_path}`" :alt="`${cast?.name} Image`"
-                class="h-full w-full object-cover" />
-            </div>
-            <div v-else
-              class="h-18 min-w-18 rounded-full flex items-center justify-center bg-[var(--dark-green)] text-[var(--green)]]">
-              <PhUser :size="50" weight="fill" />
-            </div>
-            <div class="w-full flex F flex-col">
-              <h3 class="text-xl text-[var(--green)] font-semibold">{{ cast.name }}</h3>
-              <p class="text-lg">{{ cast.character }}</p>
-            </div>
-          </div>
+          <LongPeopleCard :people="casts" />
         </div>
       </div>
       <div class="w-full min-[850px]:w-1/2 flex flex-col min-[850px]:max-[1411px]:items-end gap-2">
@@ -101,7 +89,7 @@ function groupByJob(crews) {
               </div>
               <div class="w-fit flex flex-col min-[850px]:max-[1411px]:items-end">
                 <h3 class="text-xl text-[var(--green)] font-semibold min-[850px]:max-[1411px]:text-right">{{ crew.name
-                  }}</h3>
+                }}</h3>
                 <p class="text-lg min-[850px]:max-[1411px]:text-right">{{ crew.job }}</p>
               </div>
             </div>

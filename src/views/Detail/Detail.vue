@@ -2,6 +2,7 @@
 import { useMovieDetails } from './composable';
 import { useUserStore } from '@/stores/userStore';
 import ListFolded from '@/components/ListFolded.vue';
+import ShortPeopleCard from '../../components/peopleCard/ShortPeopleCard.vue';
 import { PhBookmarkSimple } from '@phosphor-icons/vue';
 import { RouterLink } from 'vue-router';
 
@@ -92,14 +93,7 @@ const {
                 </RouterLink>
               </div>
               <div class="flex w-full min-h-max gap-4 overflow-x-auto scroll-style">
-                <div v-for="cast in castsMovie" :key="cast?.id" class="flex flex-col w-full max-h-fit items-center">
-                  <img v-if="cast?.profile_path" :src="`https://image.tmdb.org/t/p/w500${cast?.profile_path}`"
-                    alt="Cast Image" class="h-32 min-w-32 rounded-full object-cover">
-                  <img v-else :src="`https://placehold.jp/097969/ffffff/350x350.png?text=%20`" alt="Cast Image"
-                    class="h-32 min-w-32 rounded-full object-cover">
-                  <p class="text-lg text-[var(--green)] font-semibold text-center">{{ cast?.name }}</p>
-                  <p class="text-lg text-[var(--white)] text-center">{{ cast?.character }}</p>
-                </div>
+                <ShortPeopleCard :people="castsMovie" />
               </div>
             </div>
             <!-- display crews of movie with horizontal scroll view -->
