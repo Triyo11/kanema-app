@@ -1,8 +1,8 @@
 <script setup>
 import { PhUser } from '@phosphor-icons/vue';
 import { usePeopleDetails } from './composable';
-import LongPeopleCard from '@/components/LongPeopleCard.vue';
-import DynamicLongPeopleCard from '@/components/DynamicLongPeopleCard.vue';
+import LongPeopleCard from '@/components/peopleCard/LongPeopleCard.vue';
+import DynamicLongPeopleCard from '@/components/peopleCard/DynamicLongPeopleCard.vue';
 
 const {
   casts,
