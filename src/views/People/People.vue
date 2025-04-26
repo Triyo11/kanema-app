@@ -2,7 +2,8 @@
 <script setup>
 import { PhUser } from '@phosphor-icons/vue';
 import { usePeopleDetails } from './composable';
-import LongPeopleCard from '../../components/peopleCard/LongPeopleCard.vue';
+import LongPeopleCard from '@/components/peopleCard/LongPeopleCard.vue';
+import DynamicLongPeopleCard from '@/components/peopleCard/DynamicLongPeopleCard.vue';
 
 const {
   casts,
@@ -77,22 +78,7 @@ function groupByJob(crews) {
           <div v-for="(crewGroup, job) in groupByJob(crews)" :key="job"
             class="w-full h-fit flex flex-col min-[850px]:max-[1411px]:items-end gap-4">
             <h3 class="text-xl font-bold text-[var(--green)] min-[850px]:max-[1411px]:text-right">{{ job }}</h3>
-            <div v-for="crew in crewGroup" :key="crew.id"
-              class="w-full h-fit flex min-[850px]:max-[1411px]:flex-row-reverse items-center gap-2">
-              <div v-if="crew.profile_path" class="h-18 min-w-18 rounded-full overflow-hidden">
-                <img :src="`https://image.tmdb.org/t/p/w500${crew.profile_path}`" :alt="`${crew?.name} Image`"
-                  class="h-full w-full object-cover" />
-              </div>
-              <div v-else
-                class="h-18 min-w-18 rounded-full flex items-center justify-center bg-[var(--dark-green)] text-[var(--green)]]">
-                <PhUser :size="50" weight="fill" />
-              </div>
-              <div class="w-fit flex flex-col min-[850px]:max-[1411px]:items-end">
-                <h3 class="text-xl text-[var(--green)] font-semibold min-[850px]:max-[1411px]:text-right">{{ crew.name
-                }}</h3>
-                <p class="text-lg min-[850px]:max-[1411px]:text-right">{{ crew.job }}</p>
-              </div>
-            </div>
+            <DynamicLongPeopleCard :people="crewGroup" />
           </div>
         </div>
       </div>
