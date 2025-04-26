@@ -1,7 +1,7 @@
 <script setup>
 import SimpleCard from "@/components/SimpleCard.vue";
 import HeaderCatalog from "@/components/HeaderCatalog.vue";
-import NotFound from "../NotFound.vue";
+import NotFound from "./NotFound.vue";
 import useDiscover from "@/composables/useDiscover";
 import { ref, watchEffect } from "vue";
 import { Paginator } from "primevue";

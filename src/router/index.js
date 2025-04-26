@@ -4,18 +4,18 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/Home/Home.vue"),
+    component: () => import("../views/Home.vue"),
   },
   {
     path: "/catalog/:category",
     name: "Catalog",
-    component: () => import("../views/Catalog/Catalog.vue"),
+    component: () => import("../views/Catalog.vue"),
     props: true,
   },
   {
     path: "/detail/:id",
     name: "Detail",
-    component: () => import("../views/Detail/Detail.vue"),
+    component: () => import("../views/Detail.vue"),
     props: true,
   },
   {
@@ -33,25 +33,25 @@ const routes = [
   {
     path: "/profile",
     name: "Profile",
-    component: () => import("../views/Profile/Profile.vue"),
+    component: () => import("../views/Profile.vue"),
     props: true,
   },
   {
     path: "/favorite",
     name: "Favorite",
-    component: () => import("../views/Favorite/Favorite.vue"),
+    component: () => import("../views/Favorite.vue"),
     props: true,
   },
   {
     path: "/discover/:filter/:title/:query",
     name: "Discover",
-    component: () => import("../views/Discover/Discover.vue"),
+    component: () => import("../views/Discover.vue"),
     props: true,
   },
   {
     path: "/people/:movieId",
     name: "People",
-    component: () => import("../views/People/People.vue"),
+    component: () => import("../views/People.vue"),
     props: true,
   }
 ];

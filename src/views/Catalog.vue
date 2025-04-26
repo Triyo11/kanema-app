@@ -3,7 +3,7 @@ import { ref, watchEffect } from 'vue';
 import useCatalog from '@/composables/useCatalog';
 import HeaderCatalog from '@/components/HeaderCatalog.vue';
 import SimpleCard from '@/components/SimpleCard.vue';
-import NotFound from '../NotFound.vue';
+import NotFound from './NotFound.vue';
 import { Paginator } from 'primevue';
 import { PhCaretCircleLeft, PhCaretCircleRight } from '@phosphor-icons/vue';
 
