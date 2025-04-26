@@ -24,7 +24,6 @@ const searchQuery = ref('');
 const isDropdownOpen = ref(false);
 
 const handleGoToSearchPage = (query) => {
-  console.log('Search query:', query);
   if (!query) {
     toast.add({ severity: 'error', summary: 'Error', detail: 'Please enter a title.', life: 3000 });
     return;

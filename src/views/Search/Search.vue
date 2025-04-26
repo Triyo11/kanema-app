@@ -25,7 +25,7 @@ const { dataSearch, error, loading } = useSearch();
         <div v-else-if="dataSearch.length === 0">
           <NotFound :subTitle="`Search results not found`" />
         </div>
-        <div v-else-if="dataSearch" class="w-full flex flex-wrap gap-8">
+        <div v-else-if="dataSearch" class="w-full flex flex-wrap justify-center gap-8">
           <SimpleCard :movies="dataSearch" />
         </div>
       </transition>
