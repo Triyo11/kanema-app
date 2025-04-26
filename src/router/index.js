@@ -48,6 +48,12 @@ const routes = [
     component: () => import("../views/Discover/Discover.vue"),
     props: true,
   },
+  {
+    path: "/people/:movieId",
+    name: "People",
+    component: () => import("../views/People/People.vue"),
+    props: true,
+  }
 ];
 
 const router = createRouter({
