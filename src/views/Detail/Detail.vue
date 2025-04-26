@@ -53,6 +53,7 @@ const {
               {{ detailedMovie?.title }}
             </h2>
             <div class="flex flex-wrap items-center gap-2">
+              <!-- TODO : create discover by genres -->
               <div class="text-lg text-[var(--white)]">
                 {{ genresMovie }}
               </div>
@@ -82,7 +83,6 @@ const {
             </div>
           </div> -->
           <div class="w-full flex flex-col gap-4" style="padding-top: 2rem;">
-            <!-- display casts of movie with horizontal scroll view -->
             <div v-if="castsMovie.length > 0" class="flex flex-col gap-2">
               <div class="flex w-full justify-end items-center">
                 <RouterLink :to="`/people/${detailedMovie?.id}`"
