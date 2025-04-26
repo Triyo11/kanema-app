@@ -1,7 +1,6 @@
 <script setup>
 import { useMovieDetails } from './composable';
 import { useUserStore } from '@/stores/userStore';
-import ListFolded from '@/components/ListFolded.vue';
 import ShortPeopleCard from '@/components/peopleCard/ShortPeopleCard.vue';
 import { PhBookmarkSimple } from '@phosphor-icons/vue';
 import { RouterLink } from 'vue-router';

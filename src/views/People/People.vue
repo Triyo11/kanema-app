@@ -1,4 +1,3 @@
-<!-- TODO : create discover by casts and crews, at Detail page and People page -->
 <script setup>
 import { PhUser } from '@phosphor-icons/vue';
 import { usePeopleDetails } from './composable';
