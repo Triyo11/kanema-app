@@ -3,12 +3,18 @@ import { RouterLink } from 'vue-router';
 import { PhUser } from '@phosphor-icons/vue';
 
 const props = defineProps({
+  type: {
+    type: String,
+    required: true,
+    value: ['cast', 'crew'],
+  },
   people: {
     type: Array,
     required: true,
     default: () => [],
-  },
+  }
 });
+console.log('props.type', props.type);
 </script>
 
 <template>
@@ -22,7 +28,14 @@ const props = defineProps({
       <PhUser :size="50" weight="fill" />
     </div>
     <div class="w-full flex flex-col">
-      <h3 class="text-xl text-[var(--green)] font-semibold">{{ person.name }}</h3>
+      <RouterLink v-if="type === 'cast'" :to="`/discover/with_cast/${person?.name}/${person.id}`"
+        class="text-xl text-[var(--green)] font-semibold underline underline-offset-4">
+        {{ person.name }}
+      </RouterLink>
+      <RouterLink v-if="type === 'crew'" :to="`/discover/with_crew/${person?.name}/${person.id}`"
+        class="text-xl text-[var(--green)] font-semibold underline underline-offset-4">
+        {{ person.name }}
+      </RouterLink>
       <p class="text-lg">{{ person.character }}</p>
     </div>
   </div>

@@ -56,7 +56,8 @@ function groupByJob(crews) {
           <span class="text-4xl font-bold">{{ movieInfo?.title }}</span>
           <span class="text-lg">Original title: {{ movieInfo?.original_title }}</span>
         </h2>
-        <h2 v-else class="text-4xl font-bold text-[var(--green)] max-[1411px]:text-center hyphens-auto" style="padding-bottom: .25rem;">
+        <h2 v-else class="text-4xl font-bold text-[var(--green)] max-[1411px]:text-center hyphens-auto"
+          style="padding-bottom: .25rem;">
           {{ movieInfo?.title }}
         </h2>
         <p class="font-semibold text-4xl">{{ movieInfo?.release_date?.split("-")[0] }}</p>
@@ -69,7 +70,7 @@ function groupByJob(crews) {
           Casts ({{ casts.length }})
         </h2>
         <div class="flex flex-col gap-4">
-          <LongPeopleCard :people="casts" />
+          <LongPeopleCard :people="casts" type="cast" />
         </div>
       </div>
       <div class="w-full min-[850px]:w-1/2 flex flex-col min-[850px]:max-[1411px]:items-end gap-2">
@@ -78,7 +79,7 @@ function groupByJob(crews) {
           <div v-for="(crewGroup, job) in groupByJob(crews)" :key="job"
             class="w-full h-fit flex flex-col min-[850px]:max-[1411px]:items-end gap-4">
             <h3 class="text-xl font-bold text-[var(--green)] min-[850px]:max-[1411px]:text-right">{{ job }}</h3>
-            <DynamicLongPeopleCard :people="crewGroup" />
+            <DynamicLongPeopleCard :people="crewGroup" type="crew" />
           </div>
         </div>
       </div>

@@ -96,7 +96,7 @@ console.log('genresMovie', genresMovie);
                 </RouterLink>
               </div>
               <div class="flex w-full min-h-max gap-4 overflow-x-auto scroll-style">
-                <ShortPeopleCard :people="castsMovie" />
+                <ShortPeopleCard :people="castsMovie" type="cast" />
               </div>
             </div>
             <!-- display crews of movie with horizontal scroll view -->
