@@ -1,5 +1,5 @@
 <script setup>
-import { useSearch } from './composable';
+import useSearch from '@/composables/useSearch';
 import SimpleCard from '@/components/SimpleCard.vue';
 import HeaderCatalog from '@/components/HeaderCatalog.vue';
 import NotFound from '../NotFound.vue';

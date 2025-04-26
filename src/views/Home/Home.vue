@@ -1,5 +1,5 @@
 <script setup>
-import { useMovies } from "./composable";
+import useMovies from '@/composables/useMovies';
 import HeroCard from '@/components/HeroCard.vue';
 import ListFolded from '@/components/ListFolded.vue';
 import Skeleton from "primevue/skeleton";

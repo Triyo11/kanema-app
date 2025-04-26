@@ -1,5 +1,5 @@
 // composables/useMovieDetails.js
-import { ref, watchEffect, watch } from "vue";
+import { ref, watch } from "vue";
 import {
   getDetailMovie,
   getVideosMovie,
@@ -12,7 +12,7 @@ import { useUserStore } from "@/stores/userStore";
 import { useRoute } from "vue-router";
 
 
-export function useMovieDetails() {
+export default function useMovieDetail() {
   const route = useRoute();
 
   const detailMovieSeriesOmdb = ref(null);

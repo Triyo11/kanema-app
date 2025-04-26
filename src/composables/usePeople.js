@@ -2,7 +2,7 @@ import { ref, watch } from "vue";
 import { getCreditsMovie, getDetailMovie } from "@/services/api-service";
 import { useRoute } from "vue-router";
 
-export function usePeopleDetails() {
+export default function usePeople() {
   const route = useRoute();
 
   const casts = ref([]);

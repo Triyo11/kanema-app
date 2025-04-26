@@ -2,7 +2,7 @@
 import SimpleCard from "@/components/SimpleCard.vue";
 import HeaderCatalog from "@/components/HeaderCatalog.vue";
 import NotFound from "../NotFound.vue";
-import { useDiscoverMovies } from "./composable";
+import useDiscover from "@/composables/useDiscover";
 import { ref, watchEffect } from "vue";
 import { Paginator } from "primevue";
 import { PhCaretCircleDoubleLeft, PhCaretCircleDoubleRight, PhCaretCircleLeft, PhCaretCircleRight } from "@phosphor-icons/vue";
@@ -19,7 +19,7 @@ const error = ref(null);
 const loading = ref(false);
 
 watchEffect(() => {
-  const { movies, error, loading } = useDiscoverMovies(props.filter, props.query, currentPage.value + 1);
+  const { movies, error, loading } = useDiscover(props.filter, props.query, currentPage.value + 1);
   moviesContainer.value = movies;
   error.value = error;
   loading.value = loading;

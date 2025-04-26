@@ -7,7 +7,7 @@ import {
   getUpcomingMovies,
 } from "@/services/api-service";
 
-export function useMovies() {
+export default function useMovies() {
   const dataPopular = ref([]);
   const dataTopRated = ref([]);
   const dataTrending = ref([]);

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watchEffect } from 'vue';
-import { useCatalog } from './composable';
+import useCatalog from '@/composables/useCatalog';
 import HeaderCatalog from '@/components/HeaderCatalog.vue';
 import SimpleCard from '@/components/SimpleCard.vue';
 import NotFound from '../NotFound.vue';

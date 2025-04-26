@@ -1,7 +1,7 @@
 import { ref, watchEffect } from "vue";
 import { getDiscoverMovies } from "@/services/api-service";
 
-export function useDiscoverMovies(filter, query, page) {
+export default function useDiscover(filter, query, page) {
   const movies = ref(null);
   const error = ref(null);
   const loading = ref(true);

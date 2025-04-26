@@ -1,10 +1,10 @@
 <script setup>
-import { useFavorites } from "./composable";
+import useFavorite from "@/composables/useFavorite";
 import SimpleCard from "@/components/SimpleCard.vue";
 import HeaderCatalog from "@/components/HeaderCatalog.vue";
 import NotFound from "../NotFound.vue";
 
-const { favorites, error, loading } = useFavorites();
+const { favorites, error, loading } = useFavorite();
 </script>
 
 <template>

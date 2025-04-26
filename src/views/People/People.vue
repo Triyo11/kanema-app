@@ -1,6 +1,5 @@
 <script setup>
-import { PhUser } from '@phosphor-icons/vue';
-import { usePeopleDetails } from './composable';
+import usePeople from '@/composables/usePeople';
 import LongPeopleCard from '@/components/peopleCard/LongPeopleCard.vue';
 import DynamicLongPeopleCard from '@/components/peopleCard/DynamicLongPeopleCard.vue';
 
@@ -8,7 +7,7 @@ const {
   casts,
   crews,
   movieInfo,
-} = usePeopleDetails();
+} = usePeople();
 
 function groupByJob(crews) {
   const grouped = crews.reduce((acc, crew) => {

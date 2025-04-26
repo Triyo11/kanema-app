@@ -1,8 +1,8 @@
-import { ref, watch, watchEffect } from "vue";
+import { ref, watch } from "vue";
 import { getSearchMovies } from "@/services/api-service";
 import { useRoute } from "vue-router";
 
-export function useSearch() {
+export default function useSearch() {
   const route = useRoute();
 
   const dataSearch = ref([]);

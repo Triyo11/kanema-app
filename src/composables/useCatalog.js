@@ -1,4 +1,4 @@
-import { ref, watchEffect } from "vue";
+import { ref } from "vue";
 import {
   getPopularMovies,
   getTopRatedMovies,
@@ -6,7 +6,7 @@ import {
   getUpcomingMovies,
 } from "@/services/api-service";
 
-export const useCatalog = (category, page) => {
+export default function useCatalog (category, page) {
   const dataMovies = ref([]);
   const loading = ref(false);
   const error = ref(null);

@@ -2,7 +2,7 @@ import { ref, watchEffect } from "vue";
 import { useUserStore } from "@/stores/userStore";
 import { getFavoritesByEmail } from "@/utils/useSupabase";
 
-export function useFavorites() {
+export default function useFavorite() {
   const userStore = useUserStore();
   const favorites = ref(null);
   const error = ref(null);

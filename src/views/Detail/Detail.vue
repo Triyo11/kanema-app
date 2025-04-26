@@ -1,5 +1,5 @@
 <script setup>
-import { useMovieDetails } from './composable';
+import useMovieDetail from '@/composables/useMovieDetail';
 import { useUserStore } from '@/stores/userStore';
 import ShortPeopleCard from '@/components/peopleCard/ShortPeopleCard.vue';
 import { PhBookmarkSimple } from '@phosphor-icons/vue';
@@ -23,7 +23,7 @@ const {
   isFavorite,
   playVideo,
   toggleFavorite,
-} = useMovieDetails();
+} = useMovieDetail();
 console.log('genresMovie', genresMovie);
 </script>
 
@@ -118,7 +118,7 @@ console.log('genresMovie', genresMovie);
               <h2 class="text-lg" style="padding-bottom: .5rem;">Production Companies</h2>
               <ul class="flex flex-col gap-2">
                 <li v-for="company in detailedMovie?.production_companies" :key="company?.id"
-                  class="text-lg text-[var(--white)]">
+                  class="text-lg">
                   <RouterLink :to="`/discover/with_companies/${company?.name}/${company?.id}`"
                     class="text-[var(--green)] underline underline-offset-4">
                     {{ company?.name }}
@@ -127,10 +127,10 @@ console.log('genresMovie', genresMovie);
               </ul>
             </div>
             <div v-if="detailedMovie?.production_countries?.length !== 0" class="basis-1/2 production-countries">
-              <h2 class="text-lg text-[var(--green)]" style="padding-bottom: .5rem;">Production Countries</h2>
+              <h2 class="text-lg" style="padding-bottom: .5rem;">Production Countries</h2>
               <ul class="flex flex-wrap gap-4">
                 <li v-for="country in detailedMovie?.production_countries" :key="country?.iso_3166_1"
-                  class="text-lg text-[var(--white)]">
+                  class="text-lg text-[var(--green)]">
                   {{ country?.name }}
                 </li>
               </ul>
