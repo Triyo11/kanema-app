@@ -9,10 +9,12 @@ import AiDialogSearch from './AiDialogSearch.vue';
 import DialogSearch from './DialogSearch.vue';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
+import { usePaginatorStore } from '../stores/paginatorStore';
 
 const { user } = useUser();
 const userStore = useUserStore();
 const dialogSearchStore = useDialogSearchStore();
+const paginatorStore = usePaginatorStore();
 const { isSignedIn } = useAuth();
 const toast = useToast();
 
@@ -30,6 +32,7 @@ const handleGoToSearchPage = (query) => {
   }
   router.push({ name: 'Search', params: { query } });
   searchQuery.value = '';
+  paginatorStore.setCurrentPage(0);
 };
 
 const handleDropdown = () => {
@@ -104,6 +107,7 @@ watch(user, (user) => {
       </div>
     </div>
     <div class="hidden search-bar lg:flex lg:absolute w-1/3 left-1/2 transform lg:-translate-x-1/2">
+      <!-- FIXME: style search bar is still weird, try to another style if possible -->
       <form @submit.prevent="handleGoToSearchPage(searchQuery)" class="w-full flex">
         <input type="text" placeholder="Search..." v-model="searchQuery"
           class="search-input relative border-2 border-[var(--green)] focus:outline-none focus:border-[var(--green)] rounded-3xl w-full text-[var(--white)]"

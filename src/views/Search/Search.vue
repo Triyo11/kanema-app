@@ -6,18 +6,20 @@ import NotFound from '../NotFound.vue';
 import { ref, watchEffect } from 'vue';
 import { Paginator } from "primevue";
 import { PhCaretCircleDoubleLeft, PhCaretCircleDoubleRight, PhCaretCircleLeft, PhCaretCircleRight } from "@phosphor-icons/vue";
+import { usePaginatorStore } from '../../stores/paginatorStore';
 
 const props = defineProps({
-  query: String
+  query: String,
 });
 
-const currentPage = ref(0);
+const paginatorStore = usePaginatorStore();
+
 const dataSearchContainer = ref([]);
 const error = ref(null);
 const loading = ref(false);
 
 watchEffect(() => {
-  const { dataSearch, error, loading } = useSearch(props.query, currentPage.value + 1);
+  const { dataSearch, error, loading } = useSearch(props.query);
   dataSearchContainer.value = dataSearch;
   error.value = error;
   loading.value = loading;
@@ -28,7 +30,7 @@ watchEffect(() => {
   <div class="w-full flex justify-center">
     <div class="w-full max-w-7xl flex flex-col items-center gap-8">
       <HeaderCatalog :title='`Search results for "${props.query}"`' />
-      <Paginator v-model:first="currentPage" :rows="1" :totalRecords="dataSearchContainer?.value?.total_pages"
+      <Paginator v-model:first="paginatorStore.currentPage" :rows="1" :totalRecords="dataSearchContainer?.value?.total_pages"
         template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
         currentPageReportTemplate="Showing page {first} of {totalPages}">
         <template #firsticon>
@@ -58,7 +60,7 @@ watchEffect(() => {
           <SimpleCard :movies="dataSearchContainer?.value?.results.filter(movie => movie.poster_path !== null)" />
         </div>
       </transition>
-      <Paginator v-model:first="currentPage" :rows="1" :totalRecords="dataSearchContainer?.value?.total_pages"
+      <Paginator v-model:first="paginatorStore.currentPage" :rows="1" :totalRecords="dataSearchContainer?.value?.total_pages"
         template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
         currentPageReportTemplate="Showing page {first} of {totalPages}">
         <template #firsticon>
