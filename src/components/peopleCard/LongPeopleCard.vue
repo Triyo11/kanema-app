@@ -14,7 +14,6 @@ const props = defineProps({
     default: () => [],
   }
 });
-console.log('props.type', props.type);
 </script>
 
 <template>

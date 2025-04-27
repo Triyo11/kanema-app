@@ -24,7 +24,6 @@ const {
   playVideo,
   toggleFavorite,
 } = useMovieDetail();
-console.log('genresMovie', genresMovie);
 </script>
 
 <template>
