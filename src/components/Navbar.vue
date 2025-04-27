@@ -107,13 +107,12 @@ watch(user, (user) => {
       </div>
     </div>
     <div class="hidden search-bar lg:flex lg:absolute w-1/3 left-1/2 transform lg:-translate-x-1/2">
-      <!-- FIXME: style search bar is still weird, try to another style if possible -->
       <form @submit.prevent="handleGoToSearchPage(searchQuery)" class="w-full flex">
         <input type="text" placeholder="Search..." v-model="searchQuery"
-          class="search-input relative border-2 border-[var(--green)] focus:outline-none focus:border-[var(--green)] rounded-3xl w-full text-[var(--white)]"
-          style="padding: .375rem 1rem;" />
+          class="search-input relative border-2 border-[var(--green)] focus:outline-none focus:border-[var(--green)] rounded-md w-full text-[var(--white)]"
+          style="padding-top: .375rem; padding-bottom: .375rem; padding-left: .5rem; padding-right: 4.3rem;" />
         <button type="submit"
-          class="search-button absolute right-0 bg-[var(--green)] text-[var(--black)] w-fit h-full rounded-r-3xl ml-2 cursor-pointer"
+          class="search-button absolute right-0 bg-[var(--green)] text-[var(--black)] w-fit h-full rounded-r-md ml-2 cursor-pointer"
           style="padding: .25rem .5rem;">
           Search
         </button>
