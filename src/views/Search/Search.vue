@@ -3,18 +3,47 @@ import useSearch from '@/composables/useSearch';
 import SimpleCard from '@/components/SimpleCard.vue';
 import HeaderCatalog from '@/components/HeaderCatalog.vue';
 import NotFound from '../NotFound.vue';
+import { ref, watchEffect } from 'vue';
+import { Paginator } from "primevue";
+import { PhCaretCircleDoubleLeft, PhCaretCircleDoubleRight, PhCaretCircleLeft, PhCaretCircleRight } from "@phosphor-icons/vue";
 
 const props = defineProps({
   query: String
 });
 
-const { dataSearch, error, loading } = useSearch();
+const currentPage = ref(0);
+const dataSearchContainer = ref([]);
+const error = ref(null);
+const loading = ref(false);
+
+watchEffect(() => {
+  const { dataSearch, error, loading } = useSearch(props.query, currentPage.value + 1);
+  dataSearchContainer.value = dataSearch;
+  error.value = error;
+  loading.value = loading;
+});
 </script>
 
 <template>
   <div class="w-full flex justify-center">
     <div class="w-full max-w-7xl flex flex-col items-center gap-8">
       <HeaderCatalog :title='`Search results for "${props.query}"`' />
+      <Paginator v-model:first="currentPage" :rows="1" :totalRecords="dataSearchContainer?.value?.total_pages"
+        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        currentPageReportTemplate="Showing page {first} of {totalPages}">
+        <template #firsticon>
+          <PhCaretCircleDoubleLeft class="pr-2" :size="38" weight="fill" />
+        </template>
+        <template #previcon>
+          <PhCaretCircleLeft class="pr-2" :size="38" weight="fill" />
+        </template>
+        <template #nexticon>
+          <PhCaretCircleRight class="pl-2" :size="38" weight="fill" />
+        </template>
+        <template #lasticon>
+          <PhCaretCircleDoubleRight class="pl-2" :size="38" weight="fill" />
+        </template>
+      </Paginator>
       <transition name="fade" mode="out-in">
         <div v-if="loading" class="text-center">
           <p class="text-2xl font-bold text-[var(--green)]">Loading...</p>
@@ -22,13 +51,29 @@ const { dataSearch, error, loading } = useSearch();
         <div v-else-if="error" class="text-center">
           <NotFound :subTitle="`Error while searching for movies`" />
         </div>
-        <div v-else-if="dataSearch.length === 0">
+        <div v-else-if="dataSearchContainer.length === 0">
           <NotFound :subTitle="`Search results not found`" />
         </div>
-        <div v-else-if="dataSearch" class="w-full flex flex-wrap justify-center gap-8">
-          <SimpleCard :movies="dataSearch" />
+        <div v-else-if="dataSearchContainer" class="w-full flex flex-wrap justify-center gap-8">
+          <SimpleCard :movies="dataSearchContainer?.value?.results.filter(movie => movie.poster_path !== null)" />
         </div>
       </transition>
+      <Paginator v-model:first="currentPage" :rows="1" :totalRecords="dataSearchContainer?.value?.total_pages"
+        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        currentPageReportTemplate="Showing page {first} of {totalPages}">
+        <template #firsticon>
+          <PhCaretCircleDoubleLeft class="pr-2" :size="38" weight="fill" />
+        </template>
+        <template #previcon>
+          <PhCaretCircleLeft class="pr-2" :size="38" weight="fill" />
+        </template>
+        <template #nexticon>
+          <PhCaretCircleRight class="pl-2" :size="38" weight="fill" />
+        </template>
+        <template #lasticon>
+          <PhCaretCircleDoubleRight class="pl-2" :size="38" weight="fill" />
+        </template>
+      </Paginator>
     </div>
   </div>
 </template>

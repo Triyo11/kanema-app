@@ -24,7 +24,6 @@ watchEffect(() => {
   error.value = error;
   loading.value = loading;
 });
-
 </script>
 
 <template>

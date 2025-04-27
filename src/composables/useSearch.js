@@ -1,21 +1,17 @@
-import { ref, watch } from "vue";
+import { ref, watchEffect } from "vue";
 import { getSearchMovies } from "@/services/api-service";
-import { useRoute } from "vue-router";
 
-export default function useSearch() {
-  const route = useRoute();
-
-  const dataSearch = ref([]);
+export default function useSearch(query, page) {
+  const dataSearch = ref(null);
   const error = ref(null);
   const loading = ref(true);
 
-  watch(() => route.params.query, async (query) => {
-    const result = await getSearchMovies(query, 1);
-    dataSearch.value =
-      result.data.results?.filter((movie) => movie.poster_path !== null) || [];
+  watchEffect(async () => {
+    const result = await getSearchMovies(query, page);
+    dataSearch.value = result.data;
     error.value = result.error;
     loading.value = result.loading;
-  }, { immediate: true });
+  });
 
   return { dataSearch, error, loading };
 }
