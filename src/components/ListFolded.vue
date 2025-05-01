@@ -46,7 +46,7 @@ watchEffect(() => {
       <SimpleCard :movies="chosenMovies" />
       <!-- create "load more" card -->
       <RouterLink :to="`/catalog/${category}`"
-        class="flex flex-col items-center justify-center h-full bg-[var(--black)] hover:bg-[var(--dark-green)] text-[var(--white)] transition-all duration-300 ease-in-out"
+        class="flex flex-col items-center justify-center bg-[var(--black)] hover:bg-[var(--dark-green)] text-[var(--white)] transition-all duration-300 ease-in-out"
         style="padding: 2rem; border-width: .15rem; border-color: var(--dark-green);">
         <h2 class="text-white">Load More</h2>
       </RouterLink>
