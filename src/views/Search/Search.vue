@@ -29,7 +29,7 @@ watchEffect(() => {
 <template>
   <div class="w-full flex justify-center">
     <div class="w-full max-w-7xl flex flex-col items-center gap-8">
-      <HeaderCatalog :title='`Search results for "${props.query}"`' />
+      <HeaderCatalog :title="$t('search.title', { query: props.query })" />
       <Paginator v-if="dataSearchContainer?.value?.results.length > 0" v-model:first="paginatorStore.currentPage" :rows="1" :totalRecords="dataSearchContainer?.value?.total_pages"
         template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
         currentPageReportTemplate="Showing page {first} of {totalPages}">
@@ -51,10 +51,10 @@ watchEffect(() => {
           <p class="text-2xl font-bold text-[var(--green)]">Loading...</p>
         </div>
         <div v-else-if="error" class="text-center">
-          <NotFound :subTitle="`Error while searching for movies`" />
+          <NotFound subTitle="search.error" />
         </div>
         <div v-else-if="dataSearchContainer?.value?.results.length === 0">
-          <NotFound :subTitle="`Search results not found`" />
+          <NotFound subTitle="search.empty" />
         </div>
         <div v-else class="w-full flex flex-wrap justify-center gap-8">
           <SimpleCard :movies="dataSearchContainer?.value?.results.filter(movie => movie.poster_path !== null)" />

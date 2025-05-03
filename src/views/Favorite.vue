@@ -10,14 +10,14 @@ const { favorites, error, loading } = useFavorite();
 <template>
   <div class="w-full flex justify-center">
     <div class="w-full max-w-7xl flex flex-col items-center gap-8">
-      <HeaderCatalog title="My Favorite" />
+      <HeaderCatalog title="favorites.title" />
       <transition name="fade" mode="out-in">
         <p v-if="loading">Loading...</p>
         <div v-else-if="error">
-          <NotFound subTitle="Error while searching favorites" />
+          <NotFound subTitle="favorites.error" />
         </div>
         <div v-else-if="!loading && favorites.length === 0">
-          <NotFound subTitle="No favorite movies or series found" />
+          <NotFound subTitle="favorites.empty" />
         </div>
         <div v-else-if="favorites" class="w-full flex flex-wrap justify-center gap-8">
           <SimpleCard :movies="favorites" />

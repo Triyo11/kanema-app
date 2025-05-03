@@ -5,11 +5,10 @@ import HeaderCatalog from '@/components/HeaderCatalog.vue';
 import SimpleCard from '@/components/SimpleCard.vue';
 import NotFound from './NotFound.vue';
 import { Paginator } from 'primevue';
-import { PhCaretCircleLeft, PhCaretCircleRight } from '@phosphor-icons/vue';
+import { PhCaretCircleDoubleLeft, PhCaretCircleDoubleRight, PhCaretCircleLeft, PhCaretCircleRight } from '@phosphor-icons/vue';
 
 const props = defineProps({
   category: String,
-  title: String,
   movies: {
     type: Array,
     default: () => [],
@@ -32,15 +31,21 @@ watchEffect(() => {
 <template>
   <div class="w-full flex justify-center">
     <div class="w-full max-w-7xl flex flex-col items-center gap-8">
-      <HeaderCatalog
-        :title="props.category.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')" />
-      <Paginator v-model:first="currentPage" :rows="20" :totalRecords="dataMoviesContainer.value.total_results"
-        template="PrevPageLink CurrentPageReport NextPageLink" currentPageReportTemplate="Showing {first} to {last}">
+      <HeaderCatalog :title="`catalog_title.${props.category}`" />
+      <Paginator v-model:first="currentPage" :rows="1" :totalRecords="dataMoviesContainer.value.total_pages"
+        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        :currentPageReportTemplate="$t('pagination.current_page_report', { first: '{first}', totalPages: '{totalPages}' })">
+        <template #firsticon>
+          <PhCaretCircleDoubleLeft class="pr-2" :size="38" weight="fill" />
+        </template>
         <template #previcon>
           <PhCaretCircleLeft class="pr-2" :size="38" weight="fill" />
         </template>
         <template #nexticon>
           <PhCaretCircleRight class="pl-2" :size="38" weight="fill" />
+        </template>
+        <template #lasticon>
+          <PhCaretCircleDoubleRight class="pl-2" :size="38" weight="fill" />
         </template>
       </Paginator>
       <transition name="fade" mode="out-in">
@@ -49,19 +54,26 @@ watchEffect(() => {
           <NotFound subTitle="Error while display" />
         </div>
         <div v-else-if="!loading && dataMoviesContainer.value.results?.length === 0">
-          <NotFound subTitle="No favorite movies or series found" />
+          <NotFound subTitle="No movies or TV series found" />
         </div>
         <div v-else-if="dataMoviesContainer.value" class="w-full flex justify-center flex-wrap gap-8">
           <SimpleCard :movies="dataMoviesContainer.value.results" />
         </div>
       </transition>
-      <Paginator v-model:first="currentPage" :rows="20" :totalRecords="dataMoviesContainer.value.total_results"
-        template="PrevPageLink CurrentPageReport NextPageLink" currentPageReportTemplate="Showing {first} to {last}">
+      <Paginator v-model:first="currentPage" :rows="1" :totalRecords="dataMoviesContainer.value.total_pages"
+        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        :currentPageReportTemplate="$t('pagination.current_page_report', { first: '{first}', totalPages: '{totalPages}' })">
+        <template #firsticon>
+          <PhCaretCircleDoubleLeft class="pr-2" :size="38" weight="fill" />
+        </template>
         <template #previcon>
           <PhCaretCircleLeft class="pr-2" :size="38" weight="fill" />
         </template>
         <template #nexticon>
           <PhCaretCircleRight class="pl-2" :size="38" weight="fill" />
+        </template>
+        <template #lasticon>
+          <PhCaretCircleDoubleRight class="pl-2" :size="38" weight="fill" />
         </template>
       </Paginator>
     </div>

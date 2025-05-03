@@ -18,7 +18,7 @@ import { UserProfile } from '@clerk/vue';
         maxWidth: '60rem', // Added max width for larger screens
         height: '100%',
       },
-    },
+    }
   }">
   </UserProfile>
 </template>

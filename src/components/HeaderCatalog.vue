@@ -6,6 +6,6 @@ const props = defineProps({
 
 <template>
   <h2 class="text-3xl text-center font-bold text-[var(--green)] pt-4">
-    {{ title }}
+    {{ $t(title) }}
   </h2>
 </template>

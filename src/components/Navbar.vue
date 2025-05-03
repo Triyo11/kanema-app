@@ -10,6 +10,7 @@ import DialogSearch from './DialogSearch.vue';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 import { usePaginatorStore } from '../stores/paginatorStore';
+import LangSwitcher from './LangSwitcher.vue';
 
 const { user } = useUser();
 const userStore = useUserStore();
@@ -47,35 +48,36 @@ watch(user, (user) => {
 <template>
   <div class="padding-navbar sticky top-0 z-100 bg-[var(--black)] w-full max-h-max flex justify-between items-center">
     <Toast position="top-right" :baseZIndex="10000" :style="{ zIndex: 10000 }" />
-    <a href="/">
+    <RouterLink to="/">
       <h2 class="logo text-[var(--green)] text-3xl font-bold">Kanema</h2>
-    </a>
-    <div class="lg:hidden">
+    </RouterLink>
+    <div class="lg:hidden flex" style="gap: .5rem;">
+      <LangSwitcher />
       <button @click="handleDropdown"
         class="menu-button bg-[var(--green)] text-[var(--black)] rounded-md cursor-pointer"
         style="padding: .25rem .25rem;">
         <PhList :size="24" weight="bold" />
       </button>
       <div v-if="isDropdownOpen"
-        class="dropdown-menu absolute right-2 bg-[var(--dark-green)] text-[var(--green)] rounded-md shadow-lg z-50"
+        class="dropdown-menu absolute top-13 right-8 bg-[var(--dark-green)] text-[var(--green)] rounded-md shadow-lg z-50"
         style="margin-top: .15rem;">
         <ul class="dropdown-menu-list flex flex-col gap-2" style="padding: 1rem;">
           <li class="dropdown-menu-item">
             <button @click="() => {
               dialogSearchStore.openDialog();
               isDropdownOpen = false;
-            }" class="dropdown-menu-button">Search</button>
+            }" class="dropdown-menu-button">{{ $t('navbar.search') }}</button>
           </li>
           <li class="dropdown-menu-item">
             <button @click="() => {
               dialogSearchStore.openDialogAi();
               isDropdownOpen = false;
-            }" class="dropdown-menu-button">Search by AI</button>
+            }" class="dropdown-menu-button">{{ $t('navbar.search_by_ai') }}</button>
           </li>
           <li v-if="!isSignedIn" class="dropdown-menu-item">
             <SignedOut>
               <SignInButton>
-                <button class="dropdown-menu-button">Sign In</button>
+                <button class="dropdown-menu-button">{{ $t('navbar.sign_in') }}</button>
               </SignInButton>
             </SignedOut>
           </li>
@@ -84,7 +86,7 @@ watch(user, (user) => {
               <button @click="() => {
                 router.push({ name: 'Favorite' });
                 isDropdownOpen = false;
-              }" class="dropdown-menu-button">Favorites</button>
+              }" class="dropdown-menu-button">{{ $t('navbar.favorites') }}</button>
             </SignedIn>
           </li>
           <li v-if="isSignedIn" class="dropdown-menu-item">
@@ -92,13 +94,13 @@ watch(user, (user) => {
               <button @click="() => {
                 router.push({ name: 'Profile' });
                 isDropdownOpen = false;
-              }" class="dropdown-menu-button">Manage Account</button>
+              }" class="dropdown-menu-button">{{ $t('navbar.manage_account') }}</button>
             </SignedIn>
           </li>
           <li v-if="isSignedIn" class="dropdown-menu-item">
             <SignedIn>
               <SignOutButton>
-                <button class="dropdown-menu-button">Sign Out</button>
+                <button class="dropdown-menu-button">{{ $t('navbar.sign_out') }}</button>
               </SignOutButton>
             </SignedIn>
           </li>
@@ -108,21 +110,22 @@ watch(user, (user) => {
     </div>
     <div class="hidden search-bar lg:flex lg:absolute w-1/3 left-1/2 transform lg:-translate-x-1/2">
       <form @submit.prevent="handleGoToSearchPage(searchQuery)" class="w-full flex">
-        <input type="text" placeholder="Search..." v-model="searchQuery"
+        <input type="text" :placeholder="$t('navbar.search_placeholder')" v-model="searchQuery"
           class="search-input relative border-2 border-[var(--green)] focus:outline-none focus:border-[var(--green)] rounded-md w-full text-[var(--white)]"
           style="padding-top: .375rem; padding-bottom: .375rem; padding-left: .5rem; padding-right: 4.3rem;" />
         <button type="submit"
           class="search-button absolute right-0 bg-[var(--green)] text-[var(--black)] w-fit h-full rounded-r-md ml-2 cursor-pointer"
           style="padding: .25rem .5rem;">
-          Search
+          {{ $t('navbar.search') }}
         </button>
       </form>
     </div>
     <div class="lg:flex items-center justify-between gap-4 hidden">
+      <LangSwitcher />
       <button @click="dialogSearchStore.openDialogAi()"
         class="search-ai-button bg-[var(--green)] text-[var(--black)] rounded-md cursor-pointer"
         style="padding: .25rem .75rem;">
-        Search by AI
+        {{ $t('navbar.search_by_ai') }}
       </button>
       <div>
         <!-- Signed In start -->
@@ -134,11 +137,14 @@ watch(user, (user) => {
                 backgroundColor: 'var(--black)',
                 width: '300px',
                 height: 'fit-content',
+              },
+              userButtonPopoverActionButton__manageAccount: {
+                display: 'none',
               }
             },
           }" userProfileMode='navigation' , userProfileUrl='/profile'>
             <UserButton.MenuItems>
-              <UserButton.Link label="Favorites" href="/favorite">
+              <UserButton.Link :label="$t('menu_profile.favorites')" href="/favorite">
                 <template #labelIcon>
                   <PhBookmarks size={20} weight="fill" />
                 </template>
@@ -154,7 +160,7 @@ watch(user, (user) => {
           <SignInButton>
             <button class="sign-in-button bg-[var(--green)] text-[var(--black)] rounded-md cursor-pointer"
               style="padding: .25rem .75rem;">
-              Sign In
+              {{ $t('navbar.sign_in') }}
             </button>
           </SignInButton>
         </SignedOut>

@@ -35,7 +35,7 @@ export default function useMovieDetail() {
     const hours = Math.floor(duration / 60);
     const minutes = duration % 60;
     if ( duration !== 0 ) {
-      durationMovie.value = `${hours}h ${minutes}m`;
+      durationMovie.value = [hours, minutes];
     };
   };
 

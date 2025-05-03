@@ -29,10 +29,10 @@ watchEffect(() => {
 <template>
   <div class="w-full flex justify-center">
     <div class="w-full max-w-7xl flex flex-col items-center gap-8">
-      <HeaderCatalog :title="`${props.title}'s Movies`" />
+      <HeaderCatalog :title="$t('discover_movies.title', { query: props.title })" />
       <Paginator v-model:first="currentPage" :rows="1" :totalRecords="moviesContainer?.value?.total_pages"
         template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-        currentPageReportTemplate="Showing page {first} of {totalPages}">
+        :currentPageReportTemplate="$t('pagination.current_page_report', { first: '{first}', totalPages: '{totalPages}' })">
         <template #firsticon>
           <PhCaretCircleDoubleLeft class="pr-2" :size="38" weight="fill" />
         </template>
@@ -49,10 +49,10 @@ watchEffect(() => {
       <transition name="fade" mode="out-in">
         <p v-if="loading">Loading...</p>
         <div v-else-if="error">
-          <NotFound subTitle="Error while searching movies" />
+          <NotFound subTitle="discover_movies.error" />
         </div>
         <div v-else-if="!loading && moviesContainer?.value?.length === 0">
-          <NotFound subTitle="No movies found" />
+          <NotFound subTitle="discover_movies.empty" />
         </div>
         <div v-else-if="moviesContainer" class="w-full flex flex-wrap justify-center gap-8">
           <SimpleCard :movies="moviesContainer?.value?.results.filter(movie => movie.poster_path !== null)" />
@@ -60,7 +60,7 @@ watchEffect(() => {
       </transition>
       <Paginator v-model:first="currentPage" :rows="1" :totalRecords="moviesContainer?.value?.total_pages"
         template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-        currentPageReportTemplate="Showing page {first} of {totalPages}">
+        :currentPageReportTemplate="$t('pagination.current_page_report', { first: '{first}', totalPages: '{totalPages}' })">
         <template #firsticon>
           <PhCaretCircleDoubleLeft class="pr-2" :size="38" weight="fill" />
         </template>

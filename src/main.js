@@ -8,6 +8,8 @@ import { dark } from "@clerk/themes";
 import PrimeVue from "primevue/config";
 import Aura from "@primeuix/themes/aura";
 import ToastService from "primevue/toastservice";
+import { idID } from "@clerk/localizations";
+import i18n from "./lib/i18n.js";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const pinia = createPinia();
@@ -25,6 +27,7 @@ const whiteColor = rootStyles.getPropertyValue("--white").trim();
 createApp(App)
   .use(pinia)
   .use(clerkPlugin, {
+    localization: idID,
     publishableKey: PUBLISHABLE_KEY,
     appearance: {
       baseTheme: dark,
@@ -44,6 +47,7 @@ createApp(App)
       preset: Aura,
     },
   })
+  .use(i18n)
   .use(ToastService)
   .use(router)
   .mount("#app");

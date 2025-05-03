@@ -1,0 +1,60 @@
+{
+  "navbar": {
+    "search": "Cari",
+    "search_placeholder": "Cari film atau acara TV",
+    "search_by_ai": "Cari dengan AI",
+    "sign_in": "Masuk",
+    "favorites": "Favorit",
+    "manage_account": "Kelola Akun",
+    "sign_out": "Keluar"
+  },
+  "catalog_title": {
+    "trending": "Sedang Tren",
+    "popular": "Populer",
+    "top_rated": "Peringkat Teratas",
+    "upcoming": "Akan Datang",
+    "now_playing": "Sedang Tayang",
+    "airing_today": "Tayang Hari Ini",
+    "on_the_air": "Sedang Ditayangkan"
+  },
+  "detail": {
+    "original_title": "Judul asli",
+    "full_cast_crew": "Lihat semua pemeran & kru",
+    "production_companies": "Perusahaan Produksi",
+    "production_countries": "Negara Produksi"
+  },
+  "load_more": "Muat lebih banyak",
+  "pagination": {
+    "current_page_report": "Halaman {first} dari {totalPages}"
+  },
+  "menu_profile": {
+    "favorites": "Favorit"
+  },
+  "favorites": {
+    "title": "Favorit Saya",
+    "empty": "Tidak ada film atau series TV favorit yang ditemukan",
+    "error": "Kesalahan saat mencari favorit"
+  },
+  "search": {
+    "title": "Hasil pencarian untuk \"{query}\"",
+    "empty": "Hasil pencarian tidak ditemukan",
+    "error": "Kesalahan saat mencari"
+  },
+  "discover_movies": {
+    "title": "Film-film '{query}'",
+    "empty": "Tidak ada film yang ditemukan",
+    "error": "Kesalahan saat mencari film"
+  },
+  "people": {
+    "original_title": "Judul asli",
+    "title_casts": "Pemeran",
+    "title_crews": "Kru"
+  },
+  "not_found": {
+    "catalog_error": "Kesalahan saat menampilkan",
+    "catalog_empty": "Tidak ada film atau serial TV yang ditemukan"
+  },
+  "duration": {
+    "template": "{hours}j {minutes}m"
+  }
+}

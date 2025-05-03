@@ -29,10 +29,10 @@ const { loading, dataPopular, dataTopRated, dataTrending, dataNowPlaying, dataUp
         </div>
       </template>
       <div class="flex flex-col gap-4" style="padding-top: .5rem; padding-bottom: 9rem;">
-        <ListFolded titleList="Upcoming" category="upcoming" :movies="dataUpcoming" />
-        <ListFolded titleList="Popular" category="popular" :movies="dataPopular" />
-        <ListFolded titleList="Top Rated" category="top_rated" :movies="dataTopRated" />
-        <ListFolded titleList="Trending" category="trending" :movies="dataTrending" />
+        <ListFolded titleList="catalog_title.upcoming" category="upcoming" :movies="dataUpcoming" />
+        <ListFolded titleList="catalog_title.popular" category="popular" :movies="dataPopular" />
+        <ListFolded titleList="catalog_title.top_rated" category="top_rated" :movies="dataTopRated" />
+        <ListFolded titleList="catalog_title.trending" category="trending" :movies="dataTrending" />
       </div>
     </template>
   </div>

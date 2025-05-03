@@ -47,7 +47,7 @@ const {
             <h2 v-if="detailedMovie?.original_title !== detailedMovie?.title"
               class="movie-title flex flex-col gap-1 text-[var(--green)] hyphens-auto" style="padding-bottom: .25rem;">
               <span class="text-4xl font-bold">{{ detailedMovie?.title }}</span>
-              <span class="text-lg">Original title: {{ detailedMovie?.original_title }}</span>
+              <span class="text-lg">{{ $t('detail.original_title') }}: {{ detailedMovie?.original_title }}</span>
             </h2>
             <h2 v-else class="text-4xl font-bold text-[var(--green)] hyphens-auto" style="padding-bottom: .25rem;">
               {{ detailedMovie?.title }}
@@ -60,7 +60,9 @@ const {
                 </RouterLink>
               </div>
               <div v-if="durationMovie" class="w-1.5 h-1.5 rounded-full bg-[var(--white)]"></div>
-              <div v-if="durationMovie">{{ durationMovie }}</div>
+              <div v-if="durationMovie">{{ $t('duration.template', {
+                hours: durationMovie[0], minutes: durationMovie[1]
+                }) }}</div>
               <div class="w-1.5 h-1.5 rounded-full bg-[var(--white)]"></div>
               <div>{{ detailedMovie?.release_date?.split("-")[0] }}</div>
             </div>
@@ -89,8 +91,7 @@ const {
               <div class="flex w-full justify-end items-center">
                 <RouterLink :to="`/people/${detailedMovie?.id}`"
                   class="text-lg text-[var(--white)] hover:text-[var(--green)] transition-all duration-300 ease-in-out">
-                  See
-                  all casts and crews
+                  {{ $t('detail.full_cast_crew') }}
                 </RouterLink>
               </div>
               <div class="flex w-full min-h-max gap-4 overflow-x-auto scroll-style">
@@ -114,10 +115,9 @@ const {
           </div>
           <div class="w-full flex items-start gap-8" style="padding-top: 2rem;">
             <div v-if="detailedMovie?.production_companies?.length !== 0" class="basis-1/2 production-companies">
-              <h2 class="text-lg" style="padding-bottom: .5rem;">Production Companies</h2>
+              <h2 class="text-lg" style="padding-bottom: .5rem;">{{ $t('detail.production_companies') }}</h2>
               <ul class="flex flex-col gap-2">
-                <li v-for="company in detailedMovie?.production_companies" :key="company?.id"
-                  class="text-lg">
+                <li v-for="company in detailedMovie?.production_companies" :key="company?.id" class="text-lg">
                   <RouterLink :to="`/discover/with_companies/${company?.name}/${company?.id}`"
                     class="text-[var(--green)] underline underline-offset-4">
                     {{ company?.name }}
@@ -126,7 +126,7 @@ const {
               </ul>
             </div>
             <div v-if="detailedMovie?.production_countries?.length !== 0" class="basis-1/2 production-countries">
-              <h2 class="text-lg" style="padding-bottom: .5rem;">Production Countries</h2>
+              <h2 class="text-lg" style="padding-bottom: .5rem;">{{ $t('detail.production_countries') }}</h2>
               <ul class="flex flex-wrap gap-4">
                 <li v-for="country in detailedMovie?.production_countries" :key="country?.iso_3166_1"
                   class="text-lg text-[var(--green)]">

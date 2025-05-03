@@ -38,3 +38,28 @@ body {
   border-radius: 8px;
   padding: 0.5rem;
 }
+
+.p-select {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  width: fit-content !important;
+  align-items: center !important;
+}
+
+.p-select-label {
+  padding-right: 0rem !important;
+}
+
+.p-select-dropdown {
+  background-color: transparent !important;
+  width: fit-content !important;
+  padding-left: .5rem !important;
+}
+
+.p-select-dropdown-icon {
+  color: var(--white) !important;
+  width: 16px !important;
+  height: 16px !important;
+  padding-top: .2rem !important;
+}

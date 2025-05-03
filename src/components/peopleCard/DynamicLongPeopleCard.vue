@@ -36,7 +36,6 @@ const props = defineProps({
         class="text-xl underline underline-offset-4 text-[var(--green)] font-semibold min-[850px]:max-[1411px]:text-right">
         {{ person.name }}
       </RouterLink>
-      <p class="text-lg min-[850px]:max-[1411px]:text-right">{{ person.job }}</p>
     </div>
   </div>
 </template>

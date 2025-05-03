@@ -12,6 +12,7 @@
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
+    "@clerk/localizations": "^3.14.2",
     "@clerk/themes": "^2.2.23",
     "@clerk/vue": "^1.3.1",
     "@google/genai": "^0.7.0",
@@ -24,6 +25,7 @@
     "primevue": "^4.3.3",
     "tailwindcss": "^4.0.11",
     "vue": "^3.5.13",
+    "vue-i18n": "^10.0.7",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {

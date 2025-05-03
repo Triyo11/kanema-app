@@ -1,0 +1,60 @@
+{
+  "navbar": {
+    "search": "Search",
+    "search_placeholder": "Search for a movie or TV show",
+    "search_by_ai": "Search by AI",
+    "sign_in": "Sign in",
+    "favorites": "Favorites",
+    "manage_account": "Manage Account",
+    "sign_out": "Sign out"
+  },
+  "catalog_title": {
+    "trending": "Trending",
+    "popular": "Popular",
+    "top_rated": "Top Rated",
+    "upcoming": "Upcoming",
+    "now_playing": "Now Playing",
+    "airing_today": "Airing Today",
+    "on_the_air": "On The Air"
+  },
+  "detail": {
+    "original_title": "Original title",
+    "full_cast_crew": "See all cast & crew",
+    "production_companies": "Production Companies",
+    "production_countries": "Production Countries"
+  },
+  "load_more": "Load more",
+  "pagination": {
+    "current_page_report": "Page {first} of {totalPages}"
+  },
+  "menu_profile": {
+    "favorites": "Favorites"
+  },
+  "favorites": {
+    "title": "My Favorites",
+    "empty": "No favorite movies or TV series found",
+    "error": "Error while searching favorites"
+  },
+  "search": {
+    "title": "Search results for \"{query}\"",
+    "empty": "Search results not found",
+    "error": "Error while searching for"
+  },
+  "discover_movies": {
+    "title": "{query}'s movies",
+    "empty": "No movies found",
+    "error": "Error while searching for movies"
+  },
+  "people": {
+    "original_title": "Original title",
+    "title_casts": "Casts",
+    "title_crews": "Crews"
+  },
+  "not_found": {
+    "catalog_error": "Error while display",
+    "catalog_empty": "No movies or TV series found"
+  },
+  "duration": {
+    "template": "{hours}h {minutes}m"
+  }
+}

@@ -13,6 +13,7 @@ declare module 'vue' {
     DynamicLongPeopleCard: typeof import('./src/components/peopleCard/DynamicLongPeopleCard.vue')['default']
     HeaderCatalog: typeof import('./src/components/HeaderCatalog.vue')['default']
     HeroCard: typeof import('./src/components/HeroCard.vue')['default']
+    LangSwitcher: typeof import('./src/components/LangSwitcher.vue')['default']
     ListFolded: typeof import('./src/components/ListFolded.vue')['default']
     LongPeopleCard: typeof import('./src/components/peopleCard/LongPeopleCard.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']

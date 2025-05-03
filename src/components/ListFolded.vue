@@ -41,14 +41,13 @@ watchEffect(() => {
 
 <template>
   <div class="flex flex-col w-[95dvw] gap-2">
-    <h2 class="text-2xl sm:text-4xl font-bold text-white">{{ titleList }}</h2>
+    <h2 class="text-2xl sm:text-4xl font-bold text-white">{{ $t(titleList) }}</h2>
     <div ref="scrollContainer" class="flex gap-4 overflow-x-auto scroll-style scroll-smooth snap-x snap-mandatory">
       <SimpleCard :movies="chosenMovies" />
-      <!-- create "load more" card -->
       <RouterLink :to="`/catalog/${category}`"
         class="flex flex-col items-center justify-center bg-[var(--black)] hover:bg-[var(--dark-green)] text-[var(--white)] transition-all duration-300 ease-in-out"
         style="padding: 2rem; border-width: .15rem; border-color: var(--dark-green);">
-        <h2 class="text-white">Load More</h2>
+        <h2 class="text-white text-center">{{ $t('load_more') }}</h2>
       </RouterLink>
     </div>
   </div>
