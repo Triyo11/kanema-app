@@ -20,11 +20,17 @@ const { isSignedIn } = useAuth();
 const toast = useToast();
 
 const userName = computed(() => {
+  console.log(userStore.user?.imageUrl);
   return userStore.user?.firstName;
 })
 
+const profileImage = computed(() => {
+  return userStore.user?.imageUrl;
+});
+
 const searchQuery = ref('');
 const isDropdownOpen = ref(false);
+const isDropdownProfileOpen = ref(false);
 
 const handleGoToSearchPage = (query) => {
   if (!query) {
@@ -38,6 +44,10 @@ const handleGoToSearchPage = (query) => {
 
 const handleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+const handleDropdownProfile = () => {
+  isDropdownProfileOpen.value = !isDropdownProfileOpen.value;
 };
 
 watch(user, (user) => {
@@ -66,18 +76,18 @@ watch(user, (user) => {
             <button @click="() => {
               dialogSearchStore.openDialog();
               isDropdownOpen = false;
-            }" class="dropdown-menu-button">{{ $t('navbar.search') }}</button>
+            }" class="dropdown-menu-button cursor-pointer">{{ $t('navbar.search') }}</button>
           </li>
           <li class="dropdown-menu-item">
             <button @click="() => {
               dialogSearchStore.openDialogAi();
               isDropdownOpen = false;
-            }" class="dropdown-menu-button">{{ $t('navbar.search_by_ai') }}</button>
+            }" class="dropdown-menu-button cursor-pointer">{{ $t('navbar.search_by_ai') }}</button>
           </li>
           <li v-if="!isSignedIn" class="dropdown-menu-item">
             <SignedOut>
               <SignInButton>
-                <button class="dropdown-menu-button">{{ $t('navbar.sign_in') }}</button>
+                <button class="dropdown-menu-button cursor-pointer">{{ $t('navbar.sign_in') }}</button>
               </SignInButton>
             </SignedOut>
           </li>
@@ -86,7 +96,7 @@ watch(user, (user) => {
               <button @click="() => {
                 router.push({ name: 'Favorite' });
                 isDropdownOpen = false;
-              }" class="dropdown-menu-button">{{ $t('navbar.favorites') }}</button>
+              }" class="dropdown-menu-button cursor-pointer">{{ $t('navbar.favorites') }}</button>
             </SignedIn>
           </li>
           <li v-if="isSignedIn" class="dropdown-menu-item">
@@ -94,13 +104,13 @@ watch(user, (user) => {
               <button @click="() => {
                 router.push({ name: 'Profile' });
                 isDropdownOpen = false;
-              }" class="dropdown-menu-button">{{ $t('navbar.manage_account') }}</button>
+              }" class="dropdown-menu-button cursor-pointer">{{ $t('navbar.manage_account') }}</button>
             </SignedIn>
           </li>
           <li v-if="isSignedIn" class="dropdown-menu-item">
             <SignedIn>
               <SignOutButton>
-                <button class="dropdown-menu-button">{{ $t('navbar.sign_out') }}</button>
+                <button class="dropdown-menu-button cursor-pointer">{{ $t('navbar.sign_out') }}</button>
               </SignOutButton>
             </SignedIn>
           </li>
@@ -130,29 +140,37 @@ watch(user, (user) => {
       <div>
         <!-- Signed In start -->
         <div class="flex items-center gap-2">
-          <p>{{ userName }}</p>
-          <UserButton :appearance="{
-            elements: {
-              userButtonPopoverCard: {
-                backgroundColor: 'var(--black)',
-                width: '300px',
-                height: 'fit-content',
-              },
-              userButtonPopoverActionButton__manageAccount: {
-                display: 'none',
-              }
-            },
-          }" userProfileMode='navigation' , userProfileUrl='/profile'>
-            <UserButton.MenuItems>
-              <UserButton.Link :label="$t('menu_profile.favorites')" href="/favorite">
-                <template #labelIcon>
-                  <PhBookmarks size={20} weight="fill" />
-                </template>
-              </UserButton.Link>
-              <UserButton.Action label="manageAccount" />
-              <UserButton.Action label="signOut" />
-            </UserButton.MenuItems>
-          </UserButton>
+          <button @click="handleDropdownProfile" class="profile-button cursor-pointer">
+            <img v-if="profileImage" :src="profileImage" alt="Profile Image"
+              class="profile-image object-cover rounded-full w-7 h-7" />
+          </button>
+          <div v-if="isDropdownProfileOpen"
+            class="profile-dropdown absolute top-14 right-8 bg-[var(--dark-green)] text-[var(--green)] rounded-md shadow-lg z-50"
+            style="margin-top: .15rem;">
+            <ul class="profile-dropdown-list flex flex-col gap-2" style="padding: 1rem;">
+              <li class="profile-dropdown-item">
+                <button @click="() => {
+                  router.push({ name: 'Favorite' });
+                  isDropdownProfileOpen = false;
+                }" class="profile-dropdown-button cursor-pointer">{{ $t('navbar.favorites') }}</button>
+              </li>
+              <li class="profile-dropdown-item">
+                <button @click="() => {
+                  router.push({ name: 'Profile' });
+                  isDropdownProfileOpen = false;
+                }" class="profile-dropdown-button cursor-pointer">{{ $t('navbar.manage_account') }}</button>
+              </li>
+              <li class="profile-dropdown-item">
+                <SignOutButton>
+                  <button @click="isDropdownProfileOpen = false" class="profile-dropdown-button cursor-pointer">{{
+                    $t('navbar.sign_out') }}</button>
+                </SignOutButton>
+              </li>
+            </ul>
+            <div class="profile-dropdown-overlay" @click="isDropdownProfileOpen = false">
+              <!-- Overlay to close the dropdown when clicking outside -->
+            </div>
+          </div>
         </div>
         <!-- Signed In end -->
         <!-- Signed Out start -->
